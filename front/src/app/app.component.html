@@ -1,6 +1,6 @@
 <div class="layout">
 
-  <!-- LATERAL IZQUIERDO -->
+  <!-- PANEL LATERAL -->
   <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
     <div class="sidebar-header">
       <div class="brand">
@@ -8,8 +8,11 @@
         <span class="brand-text">MANABÍ</span>
       </div>
 
-      <!-- BOTÓN QUE DEBE FUNCIONAR -->
-      <button class="menu-toggle" type="button" (click)="toggleSidebar()">
+      <!-- botón ☰ -->
+      <button
+        class="menu-toggle"
+        type="button"
+        (click)="toggleSidebar()">
         ☰
       </button>
     </div>
@@ -37,4 +40,5 @@
   <main class="main">
     <router-outlet></router-outlet>
   </main>
+
 </div>

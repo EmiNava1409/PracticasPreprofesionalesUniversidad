@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  sidebarCollapsed = false;   // ← estado del menú
+  sidebarCollapsed = false;
 
   toggleSidebar() {
     this.sidebarCollapsed = !this.sidebarCollapsed;

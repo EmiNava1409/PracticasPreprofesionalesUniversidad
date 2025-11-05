@@ -6,19 +6,27 @@
 
   <div class="page-card-body">
 
+    <!-- BÚSQUEDA -->
     <div class="search-row">
       <label>Búsqueda</label>
+
       <input
         type="text"
         class="search-input"
         placeholder="Buscar por nombre o ciudad"
         [(ngModel)]="nombreBusqueda"
       />
+
+      <button class="btn-search" (click)="filtrarSedes()">
+        Buscar →
+      </button>
+
       <button class="btn-blue" (click)="abrirModalNueva()">
         Agregar Sede ⊕
       </button>
     </div>
 
+    <!-- TABLA -->
     <table class="table-sede">
       <thead>
         <tr>
@@ -28,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sede of sedesFiltradas">
+        <tr *ngFor="let sede of sedes">
           <td>{{ sede.nombre_sede }}</td>
           <td>{{ sede.ciudad }}</td>
           <td>
@@ -38,6 +46,7 @@
         </tr>
       </tbody>
     </table>
+
   </div>
 </section>
 
@@ -47,11 +56,13 @@
     <div class="modal-header">
       <h3>Gestión de Sedes</h3>
     </div>
+
     <form class="modal-body" (ngSubmit)="guardarSede()">
       <div class="form-group">
         <label>Nombre</label>
         <input type="text" [(ngModel)]="nuevaSede.nombre_sede" name="nombre_sede" required />
       </div>
+
       <div class="form-group">
         <label>Ciudad(es)</label>
         <input type="text" [(ngModel)]="nuevaSede.ciudad" name="ciudad" required />
@@ -61,7 +72,7 @@
         <button type="submit" class="btn-blue">
           {{ editando ? 'Actualizar Sede ⟲' : 'Agregar Sede ⊕' }}
         </button>
-        <button type="button" class="btn-light" (click)="showModal=false">Cancelar</button>
+        <button type="button" class="btn-light" (click)="cerrarModal()">Cancelar</button>
       </div>
     </form>
   </div>

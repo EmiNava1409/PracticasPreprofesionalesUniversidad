@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class SedeComponent implements OnInit {
 
   sedes: any[] = [];
+  sedesOriginal: any[] = [];
+
   nombreBusqueda: string = '';
 
   nuevaSede = {
@@ -29,9 +31,25 @@ export class SedeComponent implements OnInit {
   obtenerSedes(): void {
     this.http.get<any[]>('http://localhost/API/sede/listar.php')
       .subscribe({
-        next: data => this.sedes = data,
+        next: data => {
+          this.sedesOriginal = data;
+          this.sedes = data;
+        },
         error: err => console.error('Error al obtener sedes:', err)
       });
+  }
+
+  filtrarSedes(): void {
+    const term = this.nombreBusqueda.toLowerCase().trim();
+    if (!term) {
+      this.sedes = [...this.sedesOriginal];
+      return;
+    }
+
+    this.sedes = this.sedesOriginal.filter(s =>
+      s.nombre_sede.toLowerCase().includes(term) ||
+      s.ciudad.toLowerCase().includes(term)
+    );
   }
 
   abrirModalNueva(): void {
@@ -74,11 +92,14 @@ export class SedeComponent implements OnInit {
             alert('No se pudo actualizar');
           }
         });
-    } else { // crear
+
+    // crear
+    } else {
       const body = {
         nombre_sede: this.nuevaSede.nombre_sede,
         ciudad: this.nuevaSede.ciudad
       };
+
       this.http.post('http://localhost/API/sede/crear.php', body)
         .subscribe({
           next: _ => {
@@ -108,15 +129,5 @@ export class SedeComponent implements OnInit {
           alert('No se pudo eliminar');
         }
       });
-  }
-
-  // filtro muy simple en el front
-  get sedesFiltradas() {
-    const texto = this.nombreBusqueda.toLowerCase().trim();
-    if (!texto) return this.sedes;
-    return this.sedes.filter(s =>
-      s.nombre_sede.toLowerCase().includes(texto) ||
-      s.ciudad.toLowerCase().includes(texto)
-    );
   }
 }
