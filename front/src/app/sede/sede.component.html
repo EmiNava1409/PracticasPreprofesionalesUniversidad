@@ -1,0 +1,68 @@
+<section class="page-card">
+
+  <div class="page-card-header">
+    <h2>Gestión de Sedes</h2>
+  </div>
+
+  <div class="page-card-body">
+
+    <div class="search-row">
+      <label>Búsqueda</label>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar por nombre o ciudad"
+        [(ngModel)]="nombreBusqueda"
+      />
+      <button class="btn-blue" (click)="abrirModalNueva()">
+        Agregar Sede ⊕
+      </button>
+    </div>
+
+    <table class="table-sede">
+      <thead>
+        <tr>
+          <th>Nombre de Sede</th>
+          <th>Ciudad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sede of sedesFiltradas">
+          <td>{{ sede.nombre_sede }}</td>
+          <td>{{ sede.ciudad }}</td>
+          <td>
+            <button class="btn-small blue" (click)="abrirModalEditar(sede)">Editar</button>
+            <button class="btn-small red" (click)="eliminarSede(sede.id_sede)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-backdrop" *ngIf="showModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3>Gestión de Sedes</h3>
+    </div>
+    <form class="modal-body" (ngSubmit)="guardarSede()">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" [(ngModel)]="nuevaSede.nombre_sede" name="nombre_sede" required />
+      </div>
+      <div class="form-group">
+        <label>Ciudad(es)</label>
+        <input type="text" [(ngModel)]="nuevaSede.ciudad" name="ciudad" required />
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn-blue">
+          {{ editando ? 'Actualizar Sede ⟲' : 'Agregar Sede ⊕' }}
+        </button>
+        <button type="button" class="btn-light" (click)="showModal=false">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="layout">
+
+  <!-- LATERAL IZQUIERDO -->
+  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-logo">PUCE</div>
+        <span class="brand-text">MANABÍ</span>
+      </div>
+
+      <!-- BOTÓN QUE DEBE FUNCIONAR -->
+      <button class="menu-toggle" type="button" (click)="toggleSidebar()">
+        ☰
+      </button>
+    </div>
+
+    <nav class="sidebar-menu">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <span class="icon">👤</span><span>Datos personales</span>
+      </a>
+      <a routerLink="/sede" routerLinkActive="active">
+        <span class="icon">🏢</span><span>Sede</span>
+      </a>
+      <a routerLink="/area" routerLinkActive="active">
+        <span class="icon">👥</span><span>Área</span>
+      </a>
+      <a routerLink="/carpeta" routerLinkActive="active">
+        <span class="icon">📁</span><span>Carpeta</span>
+      </a>
+      <a routerLink="/formato" routerLinkActive="active">
+        <span class="icon">📑</span><span>Formato</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO DERECHA -->
+  <main class="main">
+    <router-outlet></router-outlet>
+  </main>
+</div>
