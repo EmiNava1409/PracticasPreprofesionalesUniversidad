@@ -1,6 +1,6 @@
-/* Mismo estilo que AreaComponent, adaptado a Formato */
+/* CONTENEDOR PRINCIPAL */
 .page-card{
-  background:#fff;
+  background:#ffffff;
   border-radius:8px;
   box-shadow:0 12px 30px rgba(0,0,0,.06);
   overflow:hidden;
@@ -18,6 +18,37 @@
   padding:20px 24px 28px;
 }
 
+/* BLOQUE DESCRIPTIVO */
+.formato-info{
+  margin-bottom:18px;
+  padding:12px 14px;
+  border-radius:6px;
+  background:#f9fafb;
+  border:1px solid #e5e7eb;
+  font-size:14px;
+}
+
+.formato-info h3{
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+.formato-info ul{
+  margin:8px 0 10px 18px;
+  padding:0;
+}
+
+.formato-info li{
+  margin-bottom:4px;
+}
+
+.pie-pagina-doc{
+  font-size:11px;
+  color:#6b7280;
+  margin-top:8px;
+}
+
+/* FILA BÚSQUEDA */
 .search-row{
   display:flex;
   align-items:center;
@@ -39,6 +70,7 @@
   font-size:14px;
 }
 
+/* BOTONES */
 .btn-search{
   background:#4cb7e5;
   color:#fff;
@@ -49,6 +81,10 @@
   cursor:pointer;
 }
 
+.btn-search:hover{
+  background:#38a3d2;
+}
+
 .btn-blue{
   background:#24a0e5;
   color:#fff;
@@ -57,6 +93,10 @@
   padding:8px 14px;
   font-size:14px;
   cursor:pointer;
+}
+
+.btn-blue:hover{
+  background:#188dcc;
 }
 
 .btn-small{
@@ -82,6 +122,7 @@
   cursor:pointer;
 }
 
+/* TABLA */
 .table-area{
   width:100%;
   border-collapse:collapse;
@@ -98,22 +139,26 @@
   background:#f3f4f6;
 }
 
+/* MODAL */
 .modal-backdrop{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.3);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:50;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.3);
+  display: flex;
+  justify-content: center;
+  overflow-y: auto; /* permite scroll vertical */
+  padding: 20px 0;  /* espacio arriba y abajo */
+  z-index: 50;
 }
 
 .modal-card{
-  background:#fff;
-  border-radius:8px;
-  width:600px;
-  max-width:95%;
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
+  background: #fff;
+  border-radius: 8px;
+  width: 480px;
+  max-width: 90%;
+  max-height: 90vh; /* máximo alto de pantalla */
+  overflow-y: auto; /* scroll interno si es más alto */
+  box-shadow: 0 15px 35px rgba(0,0,0,.25);
 }
 
 .modal-header{
@@ -143,6 +188,7 @@
   padding:6px 10px;
   border-radius:4px;
   border:1px solid #d1d5db;
+  font-size:14px;
 }
 
 .modal-footer{
