@@ -32,19 +32,20 @@
   <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
     <nav class="sidebar-menu">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <span class="icon">👤</span><span>Datos personales</span>
+        <span class="material-symbols-outlined menu">person</span><span class="menuname">Datos personales</span>
       </a>
       <a routerLink="/sede" routerLinkActive="active">
-        <span class="icon">🏢</span><span>Sede</span>
+
+      <span class="material-symbols-outlined menu">apartment</span><span class="menuname">Sede</span>
       </a>
       <a routerLink="/area" routerLinkActive="active">
-        <span class="icon">👥</span><span>Área</span>
+        <span class="material-symbols-outlined menu">group</span><span class="menuname">Área</span>
       </a>
       <a routerLink="/carpeta" routerLinkActive="active">
-        <span class="icon">📁</span><span>Carpeta</span>
+        <span class="material-symbols-outlined menu">folder</span><span class="menuname">Carpeta</span>
       </a>
       <a routerLink="/formato" routerLinkActive="active">
-        <span class="icon">📑</span><span>Formato</span>
+        <span class="material-symbols-outlined menu">edit_document</span><span class="menuname">Formato</span>
       </a>
     </nav>
   </aside>
