@@ -5,10 +5,10 @@
   </div>
 
   <div class="page-card-body">
+      <label  class="label-1">Búsqueda</label>
 
     <!-- BÚSQUEDA Y BOTÓN -->
     <div class="search-row">
-      <label>Búsqueda</label>
 
       <input
         type="text"
@@ -18,11 +18,11 @@
       />
 
       <button class="btn-search" (click)="filtrarCarpetas()">
-        Buscar →
+        Buscar <span class="material-symbols-outlined">search</span>
       </button>
 
       <button class="btn-blue" (click)="abrirModalNueva()">
-        Agregar Carpeta ⊕
+        Agregar Carpeta <span class="material-symbols-outlined">add_circle</span>
       </button>
     </div>
 
@@ -44,8 +44,8 @@
           <td>{{ carpeta.id_sede }}</td>
           <td>{{ carpeta.id_sub_carpeta || '-' }}</td>
           <td>
-            <button class="btn-small blue" (click)="abrirModalEditar(carpeta)">Editar</button>
-            <button class="btn-small red" (click)="eliminarCarpeta(carpeta.id_carpeta)">Eliminar</button>
+            <button class="btn-small blue" (click)="abrirModalEditar(carpeta)">Editar <span class="material-symbols-outlined little1">edit_square</span></button>
+            <button class="btn-small red" (click)="eliminarCarpeta(carpeta.id_carpeta)">Eliminar <span class="material-symbols-outlined little1">delete</span></button>
           </td>
         </tr>
       </tbody>

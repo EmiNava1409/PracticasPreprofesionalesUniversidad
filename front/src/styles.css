@@ -42,19 +42,15 @@ line-height: normal;
     font-family: Nunito;
 }
 
-.table-sede th{
+.table-sede th, .table-sede td, .table-sede th, .table-area td, .table-area th, .table-carpeta td, .table-carpeta th {
     background: white !important;
-}
-
-.table-sede td, .table-sede th {
-    font-family: Nunito;
-}
-
-.table-area td, .table-area th {
-    background: white !important;
-    font-family: Nunito;
+        font-family: Nunito;
 
 }
+
+
+
+
 
 .page-card-header {
     background: #47C1DF !important;

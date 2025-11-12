@@ -5,18 +5,18 @@
   </div>
 
   <div class="page-card-body">
+      <label class="label-1">Búsqueda</label>
 
     <!-- BÚSQUEDA Y BOTÓN -->
     <div class="search-row">
-      <label>Búsqueda</label>
       <input
         type="text"
         class="search-input"
         placeholder="Buscar por nombre o tipo de documento"
         [(ngModel)]="nombreBusqueda"
       />
-      <button class="btn-search" (click)="filtrarFormatos()">Buscar →</button>
-      <button class="btn-blue" (click)="abrirModalNuevo()">Agregar Formato ⊕</button>
+      <button class="btn-search" (click)="filtrarFormatos()">Buscar <span class="material-symbols-outlined">search</span></button>
+      <button class="btn-blue" (click)="abrirModalNuevo()">Agregar Formato <span class="material-symbols-outlined">add_circle</span></button>
     </div>
 
     <!-- TABLA -->
@@ -43,8 +43,8 @@
           <td>{{ f.periodo_de_conservacion_anio || '-' }}</td>
           <td>{{ f.ubicacion_descripcion || '-' }}</td>
           <td>
-            <button class="btn-small blue" (click)="abrirModalEditar(f)">Editar</button>
-            <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">Eliminar</button>
+            <button class="btn-small blue" (click)="abrirModalEditar(f)">Editar <span class="material-symbols-outlined little1">edit_square</span></button>
+            <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">Eliminar <span class="material-symbols-outlined little1">delete</span></button>
           </td>
         </tr>
       </tbody>

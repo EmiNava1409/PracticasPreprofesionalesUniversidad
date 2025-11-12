@@ -49,12 +49,12 @@
 }
 
 /* FILA BÚSQUEDA */
-.search-row{
+/* .search-row{
   display:flex;
   align-items:center;
   gap:10px;
   margin:16px 0;
-}
+} */
 
 .search-row label{
   font-size:14px;
