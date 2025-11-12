@@ -51,12 +51,12 @@
 
 
   color: #FFF;
-text-align: center;
-font-family: Nunito;
-font-size: 1.0625rem;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .btn-search:hover{
@@ -80,6 +80,12 @@ font-size: 1.0625rem;
 font-style: normal;
 font-weight: 700;
 line-height: normal;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* espacio entre texto e ícono */
 }
 
 .btn-blue:hover{
