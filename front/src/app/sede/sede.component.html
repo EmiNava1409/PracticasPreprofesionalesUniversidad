@@ -6,9 +6,11 @@
 
   <div class="page-card-body">
 
+      <label class="label-1">Búsqueda</label>
+
+
     <!-- BÚSQUEDA -->
     <div class="search-row">
-      <label>Búsqueda</label>
 
       <input
         type="text"
@@ -18,11 +20,16 @@
       />
 
       <button class="btn-search" (click)="filtrarSedes()">
-        Buscar →
+        Buscar
+        <span class="material-symbols-outlined">
+search
+</span>
       </button>
 
       <button class="btn-blue" (click)="abrirModalNueva()">
-        Agregar Sede ⊕
+      Agregar Sede 
+      <span class="material-symbols-outlined">add_circle</span>
+
       </button>
     </div>
 
@@ -40,8 +47,8 @@
           <td>{{ sede.nombre_sede }}</td>
           <td>{{ sede.ciudad }}</td>
           <td>
-            <button class="btn-small blue" (click)="abrirModalEditar(sede)">Editar</button>
-            <button class="btn-small red" (click)="eliminarSede(sede.id_sede)">Eliminar</button>
+            <button class="btn-small blue" (click)="abrirModalEditar(sede)">Editar <span class="material-symbols-outlined little1">edit_square</span></button>
+            <button class="btn-small red" (click)="eliminarSede(sede.id_sede)">Eliminar <span class="material-symbols-outlined little1">delete</span></button>
           </td>
         </tr>
       </tbody>
