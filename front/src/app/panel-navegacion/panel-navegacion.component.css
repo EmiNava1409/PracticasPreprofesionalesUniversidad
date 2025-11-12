@@ -5,7 +5,7 @@
   margin-bottom:24px;
 }
 
-/* contenedor para centrar la tarjeta */
+/* Contenedor para centrar la tarjeta en la pantalla */
 .inicio-container{
   display:flex;
   align-items:center;
@@ -13,7 +13,7 @@
   padding-top:10px;
 }
 
-/* tarjeta blanca con sombra (similar al sistema real) */
+/* Tarjeta blanca grande, como el sistema real */
 .inicio-card{
   width:100%;
   max-width:1100px;
@@ -26,7 +26,7 @@
   justify-content:center;
 }
 
-/* logo grande */
+/* Logo grande al centro */
 .inicio-logo{
   max-width:70%;
   max-height:70%;

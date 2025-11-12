@@ -1,22 +1,35 @@
+<!-- BARRA SUPERIOR -->
+<header class="topbar">
+  <div class="topbar-left">
+    <!-- LOGO NUEVO SIEMPRE VISIBLE -->
+    <img
+      src="assets/imagenes/logo-puce-nuevo.png"
+      alt="PUCE"
+      class="topbar-logo"
+    />
+
+    <!-- BOTÓN ☰ PARA ABRIR/CERRAR EL PANEL LATERAL -->
+    <button
+      class="menu-toggle"
+      type="button"
+      (click)="toggleSidebar()">
+      ☰
+    </button>
+  </div>
+
+  <!-- DERECHA DE LA BARRA (PUEDES PONER NOMBRE / ICONO SI QUIERES) -->
+  <div class="topbar-right">
+    <!-- Ejemplo simple, puedes cambiarlo o quitarlo -->
+    <span class="user-name">Usuario PUCE</span>
+    <span class="user-icon">👤</span>
+  </div>
+</header>
+
+<!-- CUERPO: SIDEBAR + CONTENIDO -->
 <div class="layout">
 
   <!-- PANEL LATERAL -->
   <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
-    <div class="sidebar-header">
-      <div class="brand">
-        <div class="brand-logo">PUCE</div>
-        <span class="brand-text">MANABÍ</span>
-      </div>
-
-      <!-- botón ☰ -->
-      <button
-        class="menu-toggle"
-        type="button"
-        (click)="toggleSidebar()">
-        ☰
-      </button>
-    </div>
-
     <nav class="sidebar-menu">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
         <span class="icon">👤</span><span>Datos personales</span>
@@ -40,5 +53,4 @@
   <main class="main">
     <router-outlet></router-outlet>
   </main>
-
 </div>
