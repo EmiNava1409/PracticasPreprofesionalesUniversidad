@@ -66,8 +66,8 @@
 /* ========== SIDEBAR ========== */
 
 .sidebar{
-  flex:0 0 230px;
-  width:230px;
+  flex:0 0 150px;                /* más angosto, como en el sistema real */
+  width:150px;
   background:#ffffff;
   border-right:1px solid #e5e7eb;
   display:flex;
@@ -84,38 +84,43 @@
   border-right:none;
 }
 
-/* MENÚ LATERAL */
+/* MENÚ LATERAL EN CUADROS */
+
 .sidebar-menu{
   display:flex;
   flex-direction:column;
-  padding:16px 0 8px;
+  padding:0;                     /* sin padding para que los cuadros ocupen todo */
 }
 
 .sidebar-menu a{
   display:flex;
+  flex-direction:column;         /* icono arriba, texto abajo */
   align-items:center;
-  gap:10px;
-  padding:10px 18px;
-  font-size:14px;
-  color:#374151;
+  justify-content:center;
+  text-align:center;
+  gap:8px;
+  height:120px;                  /* alto del “cuadro” */
+  padding:8px 4px;
+  font-size:13px;
+  color:#1f3a68;
   text-decoration:none;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  border-bottom:1px solid #edf2f7;  /* línea entre opciones */
 }
 
+.sidebar-menu a .icon{
+  font-size:32px;                /* tamaño del icono */
+}
+
+/* hover y activo */
+
 .sidebar-menu a:hover{
-  background:#e5f2fb;
+  background:#f1f5f9;
 }
 
 .sidebar-menu a.active{
-  background:#0b5fa8;
-  color:#fff;
-}
-
-.sidebar-menu .icon{
-  width:20px;
-  text-align:center;
+  background:#e5eefb;
+  box-shadow:inset 4px 0 0 #1f3a68;  /* franja azul al lado izquierdo */
+  font-weight:600;
 }
 
 /* ========== CONTENIDO DERECHA ========== */
