@@ -63,6 +63,10 @@
   <div class="modal-card">
     <div class="modal-header">
       <h3>Gestión de Áreas</h3>
+      <span class="material-symbols-outlined close-icon"
+        (click)="cerrarModal()">
+    cancel
+  </span>
     </div>
 
     <form class="modal-body" (ngSubmit)="guardarArea()">
@@ -107,10 +111,19 @@
       </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn-blue">
-          {{ editando ? 'Actualizar Área ⟲' : 'Agregar Área ⊕' }}
-        </button>
-        <button type="button" class="btn-light" (click)="cerrarModal()">Cancelar</button>
+       <button type="submit" class="btn-blue">
+  <span class="material-symbols-outlined">
+    {{ editando ? 'edit' : 'add_circle' }}
+  </span>
+  {{ editando ? 'Actualizar Área' : 'Agregar Área' }}
+</button>
+
+<button type="button" class="btn-light" (click)="cerrarModal()">
+  <span class="material-symbols-outlined">cancel</span>
+  Cancelar
+</button>
+
+      
       </div>
     </form>
   </div>

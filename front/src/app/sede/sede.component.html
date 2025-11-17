@@ -62,6 +62,10 @@ search
   <div class="modal-card">
     <div class="modal-header">
       <h3>Gestión de Sedes</h3>
+       <span class="material-symbols-outlined close-icon"
+        (click)="cerrarModal()">
+    cancel
+  </span>
     </div>
 
     <form class="modal-body" (ngSubmit)="guardarSede()">
@@ -76,12 +80,18 @@ search
       </div>
 
       <div class="modal-footer">
-  <button type="submit" class="btn-blue">
-    <span *ngIf="!editando" class="material-symbols-outlined">add_circle</span>
-    {{ editando ? 'Actualizar Sede' : 'Agregar Sede' }}
-  </button>
+ <button type="submit" class="btn-blue">
+  <span class="material-symbols-outlined">
+    {{ editando ? 'edit' : 'add_circle' }}
+  </span>
+  {{ editando ? 'Actualizar Sede' : 'Agregar Sede' }}
+</button>
 
-  <button type="button" class="btn-light" (click)="cerrarModal()">Cancelar</button>
+
+<button type="button" class="btn-light" (click)="cerrarModal()">
+  <span class="material-symbols-outlined">cancel</span>
+  Cancelar
+</button>
 </div>
 
 

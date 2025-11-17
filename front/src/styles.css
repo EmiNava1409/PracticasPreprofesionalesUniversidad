@@ -43,6 +43,24 @@ line-height: normal;
     color: #1B406C;
 }
 
+.material-symbols-outlined.close-icon {
+    font-size: 2rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 0.5rem;
+
+
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+
 .search-input{
     font-family: Nunito;
 }
@@ -99,31 +117,47 @@ line-height: normal !important;
 /* boton secundario a lado de buscar */
 .btn-blue{
     background: #47C1DF !important;
-    color:#fff;
     border:none;
     border-radius:4px;
     padding:8px 14px;
-    font-size:1.0625rem !important;
-    cursor:pointer;
 
 
     color: #FFF;
     text-align: center;
     font-family: Nunito;
-    font-size: 1.0625rem;
+    font-size: 1.0625rem !important;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
 
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px; /* espacio entre texto e ícono */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* espacio entre texto e ícono */
 }
 
 .btn-blue:hover{
   background:#188dcc;
+}
+
+.btn-light{ /* boton gris cancelar */
+  background: #e5e7eb !important;
+  border:none;
+  border-radius:4px;
+  padding:8px 14px;
+  font-size:1.0625rem !important;
+  cursor:pointer;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* espacio entre texto e ícono */
 }
 
 .btn-small{
