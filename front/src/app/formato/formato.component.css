@@ -49,13 +49,6 @@
 }
 
 /* FILA BÚSQUEDA */
-/* .search-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:16px 0;
-} */
-
 .search-row label{
   font-size:14px;
   color:#374151;
@@ -146,8 +139,8 @@
   background: rgba(0,0,0,.3);
   display: flex;
   justify-content: center;
-  overflow-y: auto; /* permite scroll vertical */
-  padding: 20px 0;  /* espacio arriba y abajo */
+  overflow-y: auto;
+  padding: 20px 0;
   z-index: 50;
 }
 
@@ -156,8 +149,8 @@
   border-radius: 8px;
   width: 480px;
   max-width: 90%;
-  max-height: 90vh; /* máximo alto de pantalla */
-  overflow-y: auto; /* scroll interno si es más alto */
+  max-height: 90vh;
+  overflow-y: auto;
   box-shadow: 0 15px 35px rgba(0,0,0,.25);
 }
 
@@ -196,4 +189,21 @@
   display:flex;
   justify-content:flex-end;
   gap:8px;
+}
+
+/* =============================
+   SCROLL PARA TABLAS GRANDES
+============================= */
+.table-scroll {
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 10px;
+  display: block;
+  white-space: nowrap;
+}
+
+.table-scroll table {
+  width: 100%;
+  min-width: 1200px; /* ajusta si necesitas más ancho */
+  border-collapse: collapse;
 }

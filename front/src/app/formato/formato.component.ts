@@ -8,6 +8,33 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FormatoComponent implements OnInit {
 
+  // ➤ OPCIONES PARA LOS SELECTS
+  tiposDocumento = [
+    'PDF',
+    'DOCX',
+    'XLSX',
+    'JPG',
+    'PNG',
+    'TXT'
+  ];
+
+  tiposGrupo = [
+    'Legal',
+    'Técnico',
+    'Administrativo',
+    'Financiero',
+    'Académico'
+  ];
+
+  ubicacionesDescripcion = [
+    'Archivo físico',
+    'Archivo digital',
+    'Servidor interno',
+    'Carpeta compartida',
+    'Repositorio institucional'
+  ];
+
+  // ➤ DATOS PRINCIPALES
   formatos: any[] = [];
   formatosOriginal: any[] = [];
 

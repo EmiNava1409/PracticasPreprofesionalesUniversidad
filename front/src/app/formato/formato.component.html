@@ -5,7 +5,8 @@
   </div>
 
   <div class="page-card-body">
-      <label class="label-1">Búsqueda</label>
+
+    <label class="label-1">Búsqueda</label>
 
     <!-- BÚSQUEDA Y BOTÓN -->
     <div class="search-row">
@@ -15,47 +16,75 @@
         placeholder="Buscar por nombre o tipo de documento"
         [(ngModel)]="nombreBusqueda"
       />
-      <button class="btn-search" (click)="filtrarFormatos()">Buscar <span class="material-symbols-outlined">search</span></button>
-      <button class="btn-blue" (click)="abrirModalNuevo()">Agregar Formato <span class="material-symbols-outlined">add_circle</span></button>
+      <button class="btn-search" (click)="filtrarFormatos()">Buscar 
+        <span class="material-symbols-outlined">search</span>
+      </button>
+      <button class="btn-blue" (click)="abrirModalNuevo()">Agregar Formato 
+        <span class="material-symbols-outlined">add_circle</span>
+      </button>
     </div>
 
     <!-- TABLA -->
-    <table class="table-area">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Archivo</th>
-          <th>Tipo Doc</th>
-          <th>Área</th>
-          <th>Activo Info</th>
-          <th>Periodo (años)</th>
-          <th>Ubicación</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let f of formatos">
-          <td>{{ f.formato_id }}</td>
-          <td>{{ f.nombre_archivo }}</td>
-          <td>{{ f.tipo_documento }}</td>
-          <td>{{ f.id_area || '-' }}</td>
-          <td>{{ f.activo_de_informacion || '-' }}</td>
-          <td>{{ f.periodo_de_conservacion_anio || '-' }}</td>
-          <td>{{ f.ubicacion_descripcion || '-' }}</td>
-          <td>
-            <button class="btn-small blue" (click)="abrirModalEditar(f)">Editar <span class="material-symbols-outlined little1">edit_square</span></button>
-            <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">Eliminar <span class="material-symbols-outlined little1">delete</span></button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-scroll">
+      <table class="table-area">
 
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Archivo</th>
+            <th>Tipo Doc</th>
+            <th>Área</th>
+            <th>Activo Info</th>
+            <th>Periodo (años)</th>
+            <th>Ubicación</th>
+            <th>Tipo Grupo</th>
+            <th>Tamaño</th>
+            <th>Fecha Subida</th>
+            <th>Tipo Etiqueta</th>
+            <th>ID Carpeta</th>
+            <th>Tipo Activo</th>
+            <th>Confidencialidad</th>
+            <th>Criticidad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let f of formatos">
+            <td>{{ f.formato_id }}</td>
+            <td>{{ f.nombre_archivo }}</td>
+            <td>{{ f.tipo_documento }}</td>
+            <td>{{ f.id_area || '-' }}</td>
+            <td>{{ f.activo_de_informacion || '-' }}</td>
+            <td>{{ f.periodo_de_conservacion_anio || '-' }}</td>
+            <td>{{ f.ubicacion_descripcion || '-' }}</td>
+
+            <!-- NUEVOS CAMPOS -->
+            <td>{{ f.tipo_grupo || '-' }}</td>
+            <td>{{ f.tamano || '-' }}</td>
+            <td>{{ f.fecha_subida || '-' }}</td>
+            <td>{{ f.tipo_etiqueta || '-' }}</td>
+            <td>{{ f.id_carpeta || '-' }}</td>
+            <td>{{ f.tipo_activo || '-' }}</td>
+            <td>{{ f.confidencialidad ? 'Sí' : 'No' }}</td>
+            <td>{{ f.criticidad || '-' }}</td>
+
+            <td>
+              <button class="btn-small blue" (click)="abrirModalEditar(f)">Editar</button>
+              <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- MODAL -->
 <div class="modal-backdrop" *ngIf="showModal">
   <div class="modal-card">
+
     <div class="modal-header">
       <h3>{{ editando ? 'Editar Formato' : 'Nuevo Formato' }}</h3>
     </div>
@@ -82,19 +111,31 @@
         <input type="number" [(ngModel)]="nuevoFormato.periodo_de_conservacion_anio" name="periodo_de_conservacion_anio" />
       </div>
 
+      <!-- UBICACIÓN -->
       <div class="form-group">
         <label>Ubicación</label>
-        <input type="text" [(ngModel)]="nuevoFormato.ubicacion_descripcion" name="ubicacion_descripcion" />
+        <select [(ngModel)]="nuevoFormato.ubicacion_descripcion" name="ubicacion_descripcion">
+          <option value="">Seleccione una ubicación</option>
+          <option *ngFor="let u of ubicacionesDescripcion" [value]="u">{{ u }}</option>
+        </select>
       </div>
 
+      <!-- TIPO DOCUMENTO -->
       <div class="form-group">
         <label>Tipo Documento</label>
-        <input type="text" [(ngModel)]="nuevoFormato.tipo_documento" name="tipo_documento" />
+        <select [(ngModel)]="nuevoFormato.tipo_documento" name="tipo_documento">
+          <option value="">Seleccione un tipo</option>
+          <option *ngFor="let t of tiposDocumento" [value]="t">{{ t }}</option>
+        </select>
       </div>
 
+      <!-- TIPO GRUPO -->
       <div class="form-group">
         <label>Tipo Grupo</label>
-        <input type="text" [(ngModel)]="nuevoFormato.tipo_grupo" name="tipo_grupo" />
+        <select [(ngModel)]="nuevoFormato.tipo_grupo" name="tipo_grupo">
+          <option value="">Seleccione un grupo</option>
+          <option *ngFor="let g of tiposGrupo" [value]="g">{{ g }}</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -140,10 +181,13 @@
       </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn-blue">{{ editando ? 'Actualizar Formato ⟲' : 'Agregar Formato ⊕' }}</button>
+        <button type="submit" class="btn-blue">
+          {{ editando ? 'Actualizar Formato ⟲' : 'Agregar Formato ⊕' }}
+        </button>
         <button type="button" class="btn-light" (click)="cerrarModal()">Cancelar</button>
       </div>
 
     </form>
+
   </div>
 </div>
