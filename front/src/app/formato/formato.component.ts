@@ -124,9 +124,20 @@ export class FormatoComponent implements OnInit {
   }
 
   guardarFormato(): void {
+
+    // Validación: nombre del archivo obligatorio
     if (!this.nuevoFormato.nombre_archivo?.trim()) {
       alert('El nombre del archivo es obligatorio');
-      console.log('Validación fallida:', this.nuevoFormato);
+      return;
+    }
+
+    // ✅ VALIDACIÓN: evitar valores negativos en números
+    if (
+      (this.nuevoFormato.id_area !== null && this.nuevoFormato.id_area < 0) ||
+      (this.nuevoFormato.periodo_de_conservacion_anio !== null && this.nuevoFormato.periodo_de_conservacion_anio < 0) ||
+      (this.nuevoFormato.id_carpeta !== null && this.nuevoFormato.id_carpeta < 0)
+    ) {
+      alert('Los valores numéricos (ID Área, Años de conservación, ID Carpeta) no pueden ser negativos');
       return;
     }
 
