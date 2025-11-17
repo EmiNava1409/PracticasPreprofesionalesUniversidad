@@ -119,9 +119,18 @@
 
 .sidebar-menu a.active{
   background:#e5eefb;
-  box-shadow:inset 4px 0 0 #1f3a68;  /* franja azul al lado izquierdo */
+  box-shadow:inset 4px 0 0 #47C1DF;  /* franja azul al lado izquierdo */
   font-weight:600;
 }
+
+a.active .material-symbols-outlined.menu {
+  color: #47C1DF !important;
+}
+
+a.active .menuname {
+    color: #47C1DF !important;
+}
+
 
 /* ========== CONTENIDO DERECHA ========== */
 
@@ -129,4 +138,7 @@
   flex:1;
   padding:28px 40px;
   min-width:0;
+
+  background-color: #D3D3D3;
+  min-height: 100vh;
 }

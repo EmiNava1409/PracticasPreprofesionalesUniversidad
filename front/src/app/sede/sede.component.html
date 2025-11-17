@@ -76,11 +76,15 @@ search
       </div>
 
       <div class="modal-footer">
-        <button type="submit" class="btn-blue">
-          {{ editando ? 'Actualizar Sede ⟲' : 'Agregar Sede ⊕' }}
-        </button>
-        <button type="button" class="btn-light" (click)="cerrarModal()">Cancelar</button>
-      </div>
+  <button type="submit" class="btn-blue">
+    <span *ngIf="!editando" class="material-symbols-outlined">add_circle</span>
+    {{ editando ? 'Actualizar Sede' : 'Agregar Sede' }}
+  </button>
+
+  <button type="button" class="btn-light" (click)="cerrarModal()">Cancelar</button>
+</div>
+
+
     </form>
   </div>
 </div>
