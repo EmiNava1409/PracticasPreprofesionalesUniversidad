@@ -9,22 +9,9 @@ import { HttpClient } from '@angular/common/http';
 export class FormatoComponent implements OnInit {
 
   // ➤ OPCIONES PARA LOS SELECTS
-  tiposDocumento = [
-    'PDF',
-    'DOCX',
-    'XLSX',
-    'JPG',
-    'PNG',
-    'TXT'
-  ];
+  tiposDocumento = ['PDF','DOCX','XLSX','JPG','PNG','TXT'];
 
-  tiposGrupo = [
-    'Legal',
-    'Técnico',
-    'Administrativo',
-    'Financiero',
-    'Académico'
-  ];
+  tiposGrupo = ['Legal','Técnico','Administrativo','Financiero','Académico'];
 
   ubicacionesDescripcion = [
     'Archivo físico',
@@ -34,17 +21,23 @@ export class FormatoComponent implements OnInit {
     'Repositorio institucional'
   ];
 
-  // ➤ FECHA ACTUAL PARA LA IMPRESIÓN
-  today = new Date();
+  tiposActivo: string[] = [
+    'Actas','Actas de calificación','Actas de consejo','Autorizaciones','Base de datos','Bitácora','Carnets','Cédulas','Certificaciones',
+    'Cheque','Circulares','Convenios','Convocatoria','Contratos','Correos','Diplomas','Estudios de Mercado','Evaluaciones','Exámenes',
+    'Expedientes','Facturas','Formularios','Informes','Listado','Matriz','Memorandos','Normativas','Notas de crédito','Notas de débito',
+    'Oficios','Ordenes de compra','Pagarés','Planillas','Proceso','Recibos','Reportes','Resoluciones','Roles','Solicitudes','Syllabus','Tesis'
+  ];
 
-  // ➤ LISTAS PARA MOSTRAR NOMBRES EN VEZ DE IDs
+  // ➤ FECHA ACTUAL PARA LA IMPRESIÓN (si no hay fecha_subida)
+  today: Date = new Date();
+
+  // ➤ LISTAS PARA MOSTRAR NOMBRES EN LUGAR DE IDs
   areas: any[] = [];
   carpetas: any[] = [];
 
   // ➤ DATOS PRINCIPALES
   formatos: any[] = [];
   formatosOriginal: any[] = [];
-
   nombreBusqueda: string = '';
 
   nuevoFormato = {
@@ -71,7 +64,7 @@ export class FormatoComponent implements OnInit {
   // ➤ Formato seleccionado para imprimir
   formatoImprimir: any = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.obtenerFormatos();
@@ -79,17 +72,19 @@ export class FormatoComponent implements OnInit {
     this.obtenerCarpetas();
   }
 
+  // ➤ Obtener lista de formatos
   obtenerFormatos(): void {
     this.http.get<any[]>('http://localhost/API/formato/listar.php')
       .subscribe({
         next: data => {
           this.formatosOriginal = data;
-          this.formatos = data;
+          this.formatos = [...data];
         },
         error: err => console.error('Error al obtener formatos:', err)
       });
   }
 
+  // ➤ Obtener listas para combos (área y carpeta)
   obtenerAreas(): void {
     this.http.get<any[]>('http://localhost/API/area/listar.php')
       .subscribe({
@@ -106,19 +101,20 @@ export class FormatoComponent implements OnInit {
       });
   }
 
+  // ➤ Filtrar formatos
   filtrarFormatos(): void {
     const term = this.nombreBusqueda.toLowerCase().trim();
     if (!term) {
       this.formatos = [...this.formatosOriginal];
       return;
     }
-
     this.formatos = this.formatosOriginal.filter(f =>
       (f.nombre_archivo && f.nombre_archivo.toLowerCase().includes(term)) ||
       (f.tipo_documento && f.tipo_documento.toLowerCase().includes(term))
     );
   }
 
+  // ➤ Abrir modal nuevo
   abrirModalNuevo(): void {
     this.editando = false;
     this.nuevoFormato = {
@@ -141,6 +137,7 @@ export class FormatoComponent implements OnInit {
     this.showModal = true;
   }
 
+  // ➤ Abrir modal editar
   abrirModalEditar(formato: any): void {
     this.editando = true;
     this.nuevoFormato = { ...formato };
@@ -151,15 +148,14 @@ export class FormatoComponent implements OnInit {
     this.showModal = false;
   }
 
+  // ➤ Guardar / actualizar
   guardarFormato(): void {
-
-    // Validación: nombre del archivo obligatorio
     if (!this.nuevoFormato.nombre_archivo?.trim()) {
       alert('El nombre del archivo es obligatorio');
       return;
     }
 
-    // VALIDACIÓN: evitar valores negativos en números
+    // No negativos
     if (
       (this.nuevoFormato.id_area !== null && this.nuevoFormato.id_area < 0) ||
       (this.nuevoFormato.periodo_de_conservacion_anio !== null && this.nuevoFormato.periodo_de_conservacion_anio < 0) ||
@@ -173,24 +169,40 @@ export class FormatoComponent implements OnInit {
       ? 'http://localhost/API/formato/actualizar.php'
       : 'http://localhost/API/formato/crear.php';
 
-    const body = { ...this.nuevoFormato };
-
-    console.log('Enviando al backend:', body);
+    const body = {
+      formato_id: this.nuevoFormato.formato_id,
+      nombre_archivo: this.nuevoFormato.nombre_archivo || '',
+      activo_de_informacion: this.nuevoFormato.activo_de_informacion || '',
+      id_area: this.nuevoFormato.id_area !== null ? Number(this.nuevoFormato.id_area) : null,
+      periodo_de_conservacion_anio: this.nuevoFormato.periodo_de_conservacion_anio !== null
+        ? Number(this.nuevoFormato.periodo_de_conservacion_anio)
+        : null,
+      ubicacion_descripcion: this.nuevoFormato.ubicacion_descripcion || '',
+      tipo_documento: this.nuevoFormato.tipo_documento || '',
+      tipo_grupo: this.nuevoFormato.tipo_grupo || '',
+      tamano: this.nuevoFormato.tamano || '',
+      fecha_subida: this.nuevoFormato.fecha_subida || '',
+      tipo_etiqueta: this.nuevoFormato.tipo_etiqueta || '',
+      id_carpeta: this.nuevoFormato.id_carpeta !== null ? Number(this.nuevoFormato.id_carpeta) : null,
+      tipo_activo: this.nuevoFormato.tipo_activo || '',
+      confidencialidad: !!this.nuevoFormato.confidencialidad,
+      criticidad: this.nuevoFormato.criticidad || ''
+    };
 
     this.http.post(url, body).subscribe({
-      next: (res: any) => {
-        console.log('Respuesta del backend:', res);
+      next: _ => {
         alert(this.editando ? 'Formato actualizado' : 'Formato registrado');
         this.cerrarModal();
         this.obtenerFormatos();
       },
       error: err => {
         console.error('Error al guardar formato:', err);
-        alert('No se pudo registrar/actualizar. Revisa la consola para más detalles.');
+        alert('No se pudo registrar o actualizar');
       }
     });
   }
 
+  // ➤ Eliminar formato
   eliminarFormato(formato_id: number): void {
     if (!confirm('¿Eliminar este formato?')) return;
 
@@ -207,7 +219,7 @@ export class FormatoComponent implements OnInit {
       });
   }
 
-  // ➤ Helpers para mostrar nombres en vez de IDs
+  // ➤ Helpers para mostrar nombres
   obtenerNombreArea(id_area: number | null): string {
     if (id_area == null) return '-';
     const a = this.areas.find(ar => ar.area_id == id_area);
@@ -220,11 +232,10 @@ export class FormatoComponent implements OnInit {
     return c ? c.nombre : id_carpeta.toString();
   }
 
-  // ➤ Botón PDF / Imprimir
+  // ➤ Botón PDF
   imprimirFormato(formato: any): void {
     this.formatoImprimir = formato;
-
-    // Pequeño delay para que Angular pinte la vista antes de imprimir
+    // pequeño delay para que Angular pinte la hoja antes del print
     setTimeout(() => {
       window.print();
     }, 100);

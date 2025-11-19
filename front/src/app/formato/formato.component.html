@@ -8,10 +8,9 @@
     </div>
 
     <div class="page-card-body">
-
       <label class="label-1">Búsqueda</label>
 
-      <!-- BÚSQUEDA Y BOTÓN -->
+      <!-- BÚSQUEDA Y BOTONES -->
       <div class="search-row">
         <input
           type="text"
@@ -20,11 +19,11 @@
           [(ngModel)]="nombreBusqueda"
         />
         <button class="btn-search" (click)="filtrarFormatos()">
-          Buscar 
+          Buscar
           <span class="material-symbols-outlined">search</span>
         </button>
         <button class="btn-blue" (click)="abrirModalNuevo()">
-          Agregar Formato 
+          Agregar Formato
           <span class="material-symbols-outlined">add_circle</span>
         </button>
       </div>
@@ -32,7 +31,6 @@
       <!-- TABLA -->
       <div class="table-scroll">
         <table class="table-area">
-
           <thead>
             <tr>
               <th>ID</th>
@@ -71,7 +69,6 @@
               <td>{{ f.tipo_activo || '-' }}</td>
               <td>{{ f.confidencialidad ? 'Sí' : 'No' }}</td>
               <td>{{ f.criticidad || '-' }}</td>
-
               <td>
                 <button class="btn-small blue" (click)="abrirModalEditar(f)">
                   Editar
@@ -94,7 +91,7 @@
     </div>
   </section>
 
-  <!-- MODAL CREAR/EDITAR -->
+  <!-- MODAL CREAR / EDITAR -->
   <div class="modal-backdrop" *ngIf="showModal">
     <div class="modal-card">
 
@@ -126,9 +123,7 @@
         <!-- ÁREA POR NOMBRE -->
         <div class="form-group">
           <label>Área</label>
-          <select
-            [(ngModel)]="nuevoFormato.id_area"
-            name="id_area">
+          <select [(ngModel)]="nuevoFormato.id_area" name="id_area">
             <option [ngValue]="null">Seleccione un área</option>
             <option *ngFor="let a of areas" [ngValue]="a.area_id">
               {{ a.nombre }} - {{ a.departamento }}
@@ -149,7 +144,9 @@
           <label>Ubicación</label>
           <select [(ngModel)]="nuevoFormato.ubicacion_descripcion" name="ubicacion_descripcion">
             <option value="">Seleccione una ubicación</option>
-            <option *ngFor="let u of ubicacionesDescripcion" [value]="u">{{ u }}</option>
+            <option *ngFor="let u of ubicacionesDescripcion" [value]="u">
+              {{ u }}
+            </option>
           </select>
         </div>
 
@@ -158,7 +155,9 @@
           <label>Tipo Documento</label>
           <select [(ngModel)]="nuevoFormato.tipo_documento" name="tipo_documento">
             <option value="">Seleccione un tipo</option>
-            <option *ngFor="let t of tiposDocumento" [value]="t">{{ t }}</option>
+            <option *ngFor="let t of tiposDocumento" [value]="t">
+              {{ t }}
+            </option>
           </select>
         </div>
 
@@ -167,7 +166,9 @@
           <label>Tipo Grupo</label>
           <select [(ngModel)]="nuevoFormato.tipo_grupo" name="tipo_grupo">
             <option value="">Seleccione un grupo</option>
-            <option *ngFor="let g of tiposGrupo" [value]="g">{{ g }}</option>
+            <option *ngFor="let g of tiposGrupo" [value]="g">
+              {{ g }}
+            </option>
           </select>
         </div>
 
@@ -189,9 +190,7 @@
         <!-- CARPETA POR NOMBRE -->
         <div class="form-group">
           <label>Carpeta</label>
-          <select
-            [(ngModel)]="nuevoFormato.id_carpeta"
-            name="id_carpeta">
+          <select [(ngModel)]="nuevoFormato.id_carpeta" name="id_carpeta">
             <option [ngValue]="null">Seleccione una carpeta</option>
             <option *ngFor="let c of carpetas" [ngValue]="c.id_carpeta">
               {{ c.nombre }}
@@ -201,7 +200,12 @@
 
         <div class="form-group">
           <label>Tipo Activo</label>
-          <input type="text" [(ngModel)]="nuevoFormato.tipo_activo" name="tipo_activo" />
+          <select [(ngModel)]="nuevoFormato.tipo_activo" name="tipo_activo">
+            <option value="">Seleccione un tipo de activo</option>
+            <option *ngFor="let ta of tiposActivo" [value]="ta">
+              {{ ta }}
+            </option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -234,15 +238,14 @@
             <span class="material-symbols-outlined">cancel</span>
             Cancelar
           </button>
-
         </div>
 
       </form>
-
     </div>
   </div>
 
 </div> <!-- /no-print -->
+
 <!-- HOJA PARA IMPRIMIR / PDF (solo se ve al imprimir) -->
 <div class="print-only" *ngIf="formatoImprimir">
   <div class="print-card">
@@ -250,11 +253,10 @@
     <!-- ENCABEZADO AZUL CON LOGO Y TÍTULOS -->
     <div class="print-header-bar">
       <div class="print-logo-wrap">
-        <!-- Cambia la ruta del logo si es otra -->
-        <img src="assets/imagenes/logo-img.png"
-     alt="Logo PUCE"
-     class="print-logo">
-
+        <img
+          src="assets/imagenes/logo-img.png"
+          alt="Logo PUCE"
+          class="print-logo">
       </div>
       <div class="print-header-text">
         <p class="print-uni">
@@ -269,7 +271,6 @@
     <table class="print-table">
       <tr>
         <th>Fecha de impresión</th>
-        <!-- usa la fecha de subida; si viene vacía, usa la fecha de hoy -->
         <td>{{ formatoImprimir.fecha_subida || (today | date:'yyyy-MM-dd') }}</td>
       </tr>
       <tr>
@@ -329,5 +330,6 @@
     <p class="print-note">
       Nota: Este documento es generado desde el sistema de gestión de formatos para fines informativos.
     </p>
+
   </div>
 </div>

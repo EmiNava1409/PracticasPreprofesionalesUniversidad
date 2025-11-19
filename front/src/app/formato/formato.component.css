@@ -18,7 +18,7 @@
   padding:20px 24px 28px;
 }
 
-/* BLOQUE DESCRIPTIVO */
+/* BLOQUE DESCRIPTIVO (si lo usas) */
 .formato-info{
   margin-bottom:18px;
   padding:12px 14px;
@@ -62,12 +62,6 @@
   align-items:center;
   gap:10px;
   margin:16px 0 20px;
-}
-
-.search-row label{
-  font-size:14px;
-  color:#374151;
-  min-width:80px;
 }
 
 .search-input{
@@ -237,7 +231,7 @@
   gap:8px;
 }
 
-/* SCROLL PARA TABLAS GRANDES */
+/* SCROLL TABLA */
 .table-scroll {
   overflow-x: auto;
   width: 100%;
@@ -281,7 +275,7 @@
 }
 
 .print-logo{
-  height:40px;          /* ajusta tamaño si quieres */
+  height:40px;
 }
 
 .print-header-text p{
@@ -331,6 +325,7 @@
   color:#6b7280;
 }
 
-.print-only {
-  display: none;
+/* Ocultar la hoja cuando estoy navegando normalmente */
+.print-only{
+  display:none;
 }
