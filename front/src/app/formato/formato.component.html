@@ -33,7 +33,7 @@
             <th>ID</th>
             <th>Archivo</th>
             <th>Tipo Doc</th>
-            <th>Área</th>
+            <th>Nombre Área</th>
             <th>Activo Info</th>
             <th>Periodo (años)</th>
             <th>Ubicación</th>
@@ -58,8 +58,6 @@
             <td>{{ f.activo_de_informacion || '-' }}</td>
             <td>{{ f.periodo_de_conservacion_anio || '-' }}</td>
             <td>{{ f.ubicacion_descripcion || '-' }}</td>
-
-            <!-- NUEVOS CAMPOS -->
             <td>{{ f.tipo_grupo || '-' }}</td>
             <td>{{ f.tamano || '-' }}</td>
             <td>{{ f.fecha_subida || '-' }}</td>
@@ -68,7 +66,6 @@
             <td>{{ f.tipo_activo || '-' }}</td>
             <td>{{ f.confidencialidad ? 'Sí' : 'No' }}</td>
             <td>{{ f.criticidad || '-' }}</td>
-
             <td>
               <button class="btn-small blue" (click)="abrirModalEditar(f)">Editar</button>
               <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">Eliminar</button>
@@ -87,13 +84,8 @@
 
     <div class="modal-header">
       <h3>{{ editando ? 'Editar Formato' : 'Nuevo Formato' }}</h3>
-      <span class="material-symbols-outlined close-icon"
-        (click)="cerrarModal()">
-    cancel
-  </span>
+      <span class="material-symbols-outlined close-icon" (click)="cerrarModal()">cancel</span>
     </div>
-     
-
 
     <form class="modal-body" (ngSubmit)="guardarFormato()">
 
@@ -107,47 +99,39 @@
         <input type="text" [(ngModel)]="nuevoFormato.activo_de_informacion" name="activo_de_informacion" />
       </div>
 
-      <!-- ID ÁREA SIMPLE -->
       <div class="form-group">
-        <label>ID Área</label>
-        <input type="number"
-               [(ngModel)]="nuevoFormato.id_area"
-               name="id_area"
-               placeholder="Ej: 1,2,3"
-               min="0" />
+        <label>Nombre Área</label>
+        <input type="number" [(ngModel)]="nuevoFormato.id_area" name="id_area" placeholder="Ej: 1,2,3" min="0" />
       </div>
 
       <div class="form-group">
         <label>Periodo de Conservación (años)</label>
-        <input type="number"
-               [(ngModel)]="nuevoFormato.periodo_de_conservacion_anio"
-               name="periodo_de_conservacion_anio"
-               min="0" />
+        <select [(ngModel)]="nuevoFormato.periodo_de_conservacion_anio" name="periodo_de_conservacion_anio">
+          <option value="" disabled>Seleccione años</option>
+          <option *ngFor="let anio of aniosConservacion" [value]="anio">{{ anio }} año{{ anio > 1 ? 's' : '' }}</option>
+        </select>
       </div>
 
-      <!-- UBICACIÓN -->
       <div class="form-group">
         <label>Ubicación</label>
         <select [(ngModel)]="nuevoFormato.ubicacion_descripcion" name="ubicacion_descripcion">
-          <option value="">Seleccione una ubicación</option>
+          <option value="" disabled>Seleccione una ubicación</option>
           <option *ngFor="let u of ubicacionesDescripcion" [value]="u">{{ u }}</option>
         </select>
       </div>
 
-      <!-- TIPO DOCUMENTO -->
       <div class="form-group">
         <label>Tipo Documento</label>
         <select [(ngModel)]="nuevoFormato.tipo_documento" name="tipo_documento">
-          <option value="">Seleccione un tipo</option>
+          <option value="" disabled>Seleccione un tipo</option>
           <option *ngFor="let t of tiposDocumento" [value]="t">{{ t }}</option>
         </select>
       </div>
 
-      <!-- TIPO GRUPO -->
       <div class="form-group">
         <label>Tipo Grupo</label>
         <select [(ngModel)]="nuevoFormato.tipo_grupo" name="tipo_grupo">
-          <option value="">Seleccione un grupo</option>
+          <option value="" disabled>Seleccione un grupo</option>
           <option *ngFor="let g of tiposGrupo" [value]="g">{{ g }}</option>
         </select>
       </div>
@@ -167,19 +151,17 @@
         <input type="text" [(ngModel)]="nuevoFormato.tipo_etiqueta" name="tipo_etiqueta" />
       </div>
 
-      <!-- ID CARPETA SIMPLE -->
       <div class="form-group">
         <label>ID Carpeta</label>
-        <input type="number"
-               [(ngModel)]="nuevoFormato.id_carpeta"
-               name="id_carpeta"
-               placeholder="Ej: 10,20..."
-               min="0" />
+        <input type="number" [(ngModel)]="nuevoFormato.id_carpeta" name="id_carpeta" placeholder="Ej: 10,20..." min="0" />
       </div>
 
       <div class="form-group">
         <label>Tipo Activo</label>
-        <input type="text" [(ngModel)]="nuevoFormato.tipo_activo" name="tipo_activo" />
+        <select [(ngModel)]="nuevoFormato.tipo_activo" name="tipo_activo" class="custom-select">
+          <option value="" disabled>Seleccione un tipo de activo</option>
+          <option *ngFor="let ta of tiposActivo" [value]="ta">{{ ta }}</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -193,25 +175,21 @@
       <div class="form-group">
         <label>Criticidad</label>
         <select [(ngModel)]="nuevoFormato.criticidad" name="criticidad">
-          <option>Alta</option>
-          <option>Media</option>
-          <option>Baja</option>
+          <option value="" disabled>Seleccione criticidad</option>
+          <option *ngFor="let c of ['Alta','Media','Baja']" [value]="c">{{ c }}</option>
         </select>
       </div>
 
       <div class="modal-footer">
         <button type="submit" class="btn-blue">
-  <span class="material-symbols-outlined">
-    {{ editando ? 'edit' : 'add_circle' }}
-  </span>
-  {{ editando ? 'Actualizar Formato' : 'Agregar Formato' }}
-</button>
+          <span class="material-symbols-outlined">{{ editando ? 'edit' : 'add_circle' }}</span>
+          {{ editando ? 'Actualizar Formato' : 'Agregar Formato' }}
+        </button>
 
-<button type="button" class="btn-light" (click)="cerrarModal()">
-  <span class="material-symbols-outlined">cancel</span>
-  Cancelar
-</button>
-
+        <button type="button" class="btn-light" (click)="cerrarModal()">
+          <span class="material-symbols-outlined">cancel</span>
+          Cancelar
+        </button>
       </div>
 
     </form>
