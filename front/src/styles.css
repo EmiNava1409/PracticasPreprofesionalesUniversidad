@@ -6,53 +6,29 @@
     'wght' 500,
     'GRAD' 0,
     'opsz' 40;
-    vertical-align: middle;
-    font-size: 20px;
-
+  vertical-align: middle;
+  font-size: 20px;
 }
 
-
-.btn-small.blue {
-background: #47C1DF !important;
-color: #FFF;
-text-align: center;
-font-family: Nunito;
-font-size: 1.0625rem;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-}
-
-.btn-small.red {
-    background: #D9837E  !important;
-    color: #FFF;
-text-align: center;
-font-family: Nunito;
-font-size: 1.0625rem;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-}
-
+/* Íconos pequeños y menú */
 .material-symbols-outlined.little1 {
-        font-size: 10px;
+  font-size: 10px;
 }
 
 .material-symbols-outlined.menu {
-    font-size: 60px;
-    color: #1B406C;
+  font-size: 60px;
+  color: #1B406C;
 }
 
 .material-symbols-outlined.close-icon {
-    font-size: 2rem;
-    color: #FFFFFF;
-    cursor: pointer;
-    float: right;
-    margin-bottom: 0.5rem;
-
-
+  font-size: 2rem;
+  color: #FFFFFF;
+  cursor: pointer;
+  float: right;
+  margin-bottom: 0.5rem;
 }
 
+/* Modal header (estructura) */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -60,106 +36,108 @@ line-height: normal;
   position: relative;
 }
 
-
+/* Tipografía en inputs de búsqueda */
 .search-input{
-    font-family: Nunito;
+  font-family: Nunito;
 }
 
-.table-sede th, .table-sede td, .table-sede th, .table-area td, .table-area th, .table-carpeta td, .table-carpeta th {
-    background: white !important;
-    font-family: Nunito;
-
+/* Tablas (sede, área, carpeta) */
+.table-sede th,
+.table-sede td,
+.table-area td,
+.table-area th,
+.table-carpeta td,
+.table-carpeta th {
+  background: white !important;
+  font-family: Nunito;
 }
 
-
-
-
-
+/* Encabezado de las cards de página */
 .page-card-header {
-    background: #47C1DF !important;
-    color: #fff !important; 
-    padding: 16px 24px !important;
-    font-weight: 700 !important;
-    font-size: 20px !important;
-    font-family: Nunito !important;
+  background: #47C1DF !important;
+  color: #fff !important;
+  padding: 16px 24px !important;
+  font-weight: 700 !important;
+  font-size: 20px !important;
+  font-family: Nunito !important;
 }
 
+/* Label de “Búsqueda” */
 .label-1{
   color: #000 !important;
-font-family: Nunito !important;
-font-size: 1.25rem !important;
-font-style: normal !important;
-font-weight: 700 !important;
-line-height: normal !important;
+  font-family: Nunito !important;
+  font-size: 1.25rem !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: normal !important;
 }
 
+/* ---------------- BOTONES ---------------- */
 
-/* --------------------------------------botones------------------------- */
-
-/* Boton buscar  */
+/* Botón Buscar  */
 .btn-search{ 
-    background: #47C1DF !important;
-    color:#fff;
-    border:none;
-    border-radius:4px;
-    padding:8px 14px;
-    font-size:1.0625rem !important;
-    cursor:pointer;
-
-    text-align: center;
-    font-family: Nunito;
-    font-size: 1.0625rem;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-/* boton secundario a lado de buscar */
-.btn-blue{
-    background: #47C1DF !important;
-    border:none;
-    border-radius:4px;
-    padding:8px 14px;
-
-
-    color: #FFF;
-    text-align: center;
-    font-family: Nunito;
-    font-size: 1.0625rem !important;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px; /* espacio entre texto e ícono */
-}
-
-.btn-blue:hover{
-  background:#188dcc;
-}
-
-.btn-light{ /* boton gris cancelar */
-  background: #e5e7eb !important;
+  background: #47C1DF !important;
+  color:#fff;
   border:none;
   border-radius:4px;
   padding:8px 14px;
   font-size:1.0625rem !important;
   cursor:pointer;
+
   text-align: center;
   font-family: Nunito;
-  font-size: 1.0625rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
+}
+
+/* Botón secundario al lado de buscar (Agregar) */
+.btn-blue{
+  background: #47C1DF !important;
+  border:none;
+  border-radius:4px;
+  padding:8px 14px;
+
+  color: #FFF;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 1.0625rem !important;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px; /* espacio entre texto e ícono */
 }
 
+.btn-blue:hover{
+  background:#188dcc;
+}
+
+/* Botón gris (Cancelar) */
+.btn-light{
+  background: #e5e7eb !important;
+  border:none;
+  border-radius:4px;
+  padding:8px 14px;
+  font-size:1.0625rem !important;
+  cursor:pointer;
+
+  text-align: center;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* espacio entre texto e ícono */
+}
+
+/* Botones pequeños: Editar / Eliminar / PDF */
 .btn-small{
   padding:4px 10px;
   border:none;
@@ -169,7 +147,29 @@ line-height: normal !important;
   margin-right:4px;
 }
 
-/* fila búsqueda */
+.btn-small.blue {
+  background: #47C1DF !important;
+  color: #FFF;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.btn-small.red {
+  background: #D9837E  !important;
+  color: #FFF;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 1.0625rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* Fila búsqueda */
 .search-row{
   display:flex;
   align-items:center;
@@ -191,15 +191,49 @@ line-height: normal !important;
   font-size:14px;
 }
 
+/* Nombres del menú lateral */
 .menuname {
-    font-family: Nunito;
-    font-size: 1rem;
-    font-weight: 600;
+  font-family: Nunito;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
+/* Modal header (colores) */
 .modal-header{
   background:#47C1DF !important;
   color:#fff;
   padding:12px 20px;
   border-radius:8px 8px 0 0;
+}
+
+/* =========================================================
+   REGLAS GLOBALES PARA IMPRESIÓN
+   – Solo se imprime la hoja con clase .print-card
+   ========================================================= */
+@media print {
+  /* Oculta TODO por defecto */
+  body * {
+    visibility: hidden;
+  }
+
+  /* La sección especial de impresión SÍ se muestra */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Muestra solo la tarjeta de impresión y su contenido */
+  .print-card,
+  .print-card * {
+    visibility: visible;
+  }
+
+  .print-card {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+    border-radius: 0;
+  }
 }

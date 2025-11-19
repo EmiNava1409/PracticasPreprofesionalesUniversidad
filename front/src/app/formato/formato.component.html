@@ -1,220 +1,333 @@
-<section class="page-card">
+<!-- CONTENIDO NORMAL (no se imprime) -->
+<div class="no-print">
 
-  <div class="page-card-header">
-    <h2>Gestión de Formatos</h2>
+  <section class="page-card">
+
+    <div class="page-card-header">
+      <h2>Gestión de Formatos</h2>
+    </div>
+
+    <div class="page-card-body">
+
+      <label class="label-1">Búsqueda</label>
+
+      <!-- BÚSQUEDA Y BOTÓN -->
+      <div class="search-row">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar por nombre o tipo de documento"
+          [(ngModel)]="nombreBusqueda"
+        />
+        <button class="btn-search" (click)="filtrarFormatos()">
+          Buscar 
+          <span class="material-symbols-outlined">search</span>
+        </button>
+        <button class="btn-blue" (click)="abrirModalNuevo()">
+          Agregar Formato 
+          <span class="material-symbols-outlined">add_circle</span>
+        </button>
+      </div>
+
+      <!-- TABLA -->
+      <div class="table-scroll">
+        <table class="table-area">
+
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Archivo</th>
+              <th>Tipo Doc</th>
+              <th>Área</th>
+              <th>Activo Info</th>
+              <th>Periodo (años)</th>
+              <th>Ubicación</th>
+              <th>Tipo Grupo</th>
+              <th>Tamaño</th>
+              <th>Fecha Subida</th>
+              <th>Tipo Etiqueta</th>
+              <th>Carpeta</th>
+              <th>Tipo Activo</th>
+              <th>Confidencialidad</th>
+              <th>Criticidad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let f of formatos">
+              <td>{{ f.formato_id }}</td>
+              <td>{{ f.nombre_archivo }}</td>
+              <td>{{ f.tipo_documento || '-' }}</td>
+              <td>{{ obtenerNombreArea(f.id_area) }}</td>
+              <td>{{ f.activo_de_informacion || '-' }}</td>
+              <td>{{ f.periodo_de_conservacion_anio || '-' }}</td>
+              <td>{{ f.ubicacion_descripcion || '-' }}</td>
+              <td>{{ f.tipo_grupo || '-' }}</td>
+              <td>{{ f.tamano || '-' }}</td>
+              <td>{{ f.fecha_subida || '-' }}</td>
+              <td>{{ f.tipo_etiqueta || '-' }}</td>
+              <td>{{ obtenerNombreCarpeta(f.id_carpeta) }}</td>
+              <td>{{ f.tipo_activo || '-' }}</td>
+              <td>{{ f.confidencialidad ? 'Sí' : 'No' }}</td>
+              <td>{{ f.criticidad || '-' }}</td>
+
+              <td>
+                <button class="btn-small blue" (click)="abrirModalEditar(f)">
+                  Editar
+                  <span class="material-symbols-outlined little1">edit_square</span>
+                </button>
+                <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">
+                  Eliminar
+                  <span class="material-symbols-outlined little1">delete</span>
+                </button>
+                <button class="btn-small gray" (click)="imprimirFormato(f)">
+                  PDF
+                  <span class="material-symbols-outlined little1">picture_as_pdf</span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL CREAR/EDITAR -->
+  <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal-card">
+
+      <div class="modal-header">
+        <h3>{{ editando ? 'Editar Formato' : 'Nuevo Formato' }}</h3>
+        <span class="material-symbols-outlined close-icon"
+          (click)="cerrarModal()">
+          cancel
+        </span>
+      </div>
+
+      <form class="modal-body" (ngSubmit)="guardarFormato()">
+
+        <div class="form-group">
+          <label>Nombre Archivo</label>
+          <input type="text"
+                 [(ngModel)]="nuevoFormato.nombre_archivo"
+                 name="nombre_archivo"
+                 required />
+        </div>
+
+        <div class="form-group">
+          <label>Activo de Información</label>
+          <input type="text"
+                 [(ngModel)]="nuevoFormato.activo_de_informacion"
+                 name="activo_de_informacion" />
+        </div>
+
+        <!-- ÁREA POR NOMBRE -->
+        <div class="form-group">
+          <label>Área</label>
+          <select
+            [(ngModel)]="nuevoFormato.id_area"
+            name="id_area">
+            <option [ngValue]="null">Seleccione un área</option>
+            <option *ngFor="let a of areas" [ngValue]="a.area_id">
+              {{ a.nombre }} - {{ a.departamento }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Periodo de Conservación (años)</label>
+          <input type="number"
+                 [(ngModel)]="nuevoFormato.periodo_de_conservacion_anio"
+                 name="periodo_de_conservacion_anio"
+                 min="0" />
+        </div>
+
+        <!-- UBICACIÓN -->
+        <div class="form-group">
+          <label>Ubicación</label>
+          <select [(ngModel)]="nuevoFormato.ubicacion_descripcion" name="ubicacion_descripcion">
+            <option value="">Seleccione una ubicación</option>
+            <option *ngFor="let u of ubicacionesDescripcion" [value]="u">{{ u }}</option>
+          </select>
+        </div>
+
+        <!-- TIPO DOCUMENTO -->
+        <div class="form-group">
+          <label>Tipo Documento</label>
+          <select [(ngModel)]="nuevoFormato.tipo_documento" name="tipo_documento">
+            <option value="">Seleccione un tipo</option>
+            <option *ngFor="let t of tiposDocumento" [value]="t">{{ t }}</option>
+          </select>
+        </div>
+
+        <!-- TIPO GRUPO -->
+        <div class="form-group">
+          <label>Tipo Grupo</label>
+          <select [(ngModel)]="nuevoFormato.tipo_grupo" name="tipo_grupo">
+            <option value="">Seleccione un grupo</option>
+            <option *ngFor="let g of tiposGrupo" [value]="g">{{ g }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tamaño</label>
+          <input type="text" [(ngModel)]="nuevoFormato.tamano" name="tamano" />
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Subida</label>
+          <input type="date" [(ngModel)]="nuevoFormato.fecha_subida" name="fecha_subida" />
+        </div>
+
+        <div class="form-group">
+          <label>Tipo Etiqueta</label>
+          <input type="text" [(ngModel)]="nuevoFormato.tipo_etiqueta" name="tipo_etiqueta" />
+        </div>
+
+        <!-- CARPETA POR NOMBRE -->
+        <div class="form-group">
+          <label>Carpeta</label>
+          <select
+            [(ngModel)]="nuevoFormato.id_carpeta"
+            name="id_carpeta">
+            <option [ngValue]="null">Seleccione una carpeta</option>
+            <option *ngFor="let c of carpetas" [ngValue]="c.id_carpeta">
+              {{ c.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Tipo Activo</label>
+          <input type="text" [(ngModel)]="nuevoFormato.tipo_activo" name="tipo_activo" />
+        </div>
+
+        <div class="form-group">
+          <label>Confidencialidad</label>
+          <select [(ngModel)]="nuevoFormato.confidencialidad" name="confidencialidad">
+            <option [ngValue]="true">Sí</option>
+            <option [ngValue]="false">No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Criticidad</label>
+          <select [(ngModel)]="nuevoFormato.criticidad" name="criticidad">
+            <option value="">Seleccione</option>
+            <option>Alta</option>
+            <option>Media</option>
+            <option>Baja</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn-blue">
+            <span class="material-symbols-outlined">
+              {{ editando ? 'edit' : 'add_circle' }}
+            </span>
+            {{ editando ? 'Actualizar Formato' : 'Agregar Formato' }}
+          </button>
+
+          <button type="button" class="btn-light" (click)="cerrarModal()">
+            <span class="material-symbols-outlined">cancel</span>
+            Cancelar
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
   </div>
 
-  <div class="page-card-body">
+</div> <!-- /no-print -->
+<!-- HOJA PARA IMPRIMIR / PDF (solo se ve al imprimir) -->
+<div class="print-only" *ngIf="formatoImprimir">
+  <div class="print-card">
 
-    <label class="label-1">Búsqueda</label>
+    <!-- ENCABEZADO AZUL CON LOGO Y TÍTULOS -->
+    <div class="print-header-bar">
+      <div class="print-logo-wrap">
+        <!-- Cambia la ruta del logo si es otra -->
+        <img src="assets/imagenes/logo-img.png"
+     alt="Logo PUCE"
+     class="print-logo">
 
-    <!-- BÚSQUEDA Y BOTÓN -->
-    <div class="search-row">
-      <input
-        type="text"
-        class="search-input"
-        placeholder="Buscar por nombre o tipo de documento"
-        [(ngModel)]="nombreBusqueda"
-      />
-      <button class="btn-search" (click)="filtrarFormatos()">Buscar 
-        <span class="material-symbols-outlined">search</span>
-      </button>
-      <button class="btn-blue" (click)="abrirModalNuevo()">Agregar Formato 
-        <span class="material-symbols-outlined">add_circle</span>
-      </button>
+      </div>
+      <div class="print-header-text">
+        <p class="print-uni">
+          PONTIFICIA UNIVERSIDAD CATÓLICA DEL ECUADOR – SEDE MANABÍ
+        </p>
+        <p class="print-system">Sistema de Gestión de Formatos</p>
+        <p class="print-detail">Detalle del formato</p>
+      </div>
     </div>
 
-    <!-- TABLA -->
-    <div class="table-scroll">
-      <table class="table-area">
+    <!-- TABLA DE DETALLE -->
+    <table class="print-table">
+      <tr>
+        <th>Fecha de impresión</th>
+        <!-- usa la fecha de subida; si viene vacía, usa la fecha de hoy -->
+        <td>{{ formatoImprimir.fecha_subida || (today | date:'yyyy-MM-dd') }}</td>
+      </tr>
+      <tr>
+        <th>Nombre del archivo</th>
+        <td>{{ formatoImprimir.nombre_archivo }}</td>
+      </tr>
+      <tr>
+        <th>Tipo documento</th>
+        <td>{{ formatoImprimir.tipo_documento || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Área</th>
+        <td>{{ obtenerNombreArea(formatoImprimir.id_area) }}</td>
+      </tr>
+      <tr>
+        <th>Carpeta</th>
+        <td>{{ obtenerNombreCarpeta(formatoImprimir.id_carpeta) }}</td>
+      </tr>
+      <tr>
+        <th>Activo de información</th>
+        <td>{{ formatoImprimir.activo_de_informacion || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Periodo de conservación (años)</th>
+        <td>{{ formatoImprimir.periodo_de_conservacion_anio || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Ubicación</th>
+        <td>{{ formatoImprimir.ubicacion_descripcion || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Tipo grupo</th>
+        <td>{{ formatoImprimir.tipo_grupo || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Tamaño</th>
+        <td>{{ formatoImprimir.tamano || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Tipo etiqueta</th>
+        <td>{{ formatoImprimir.tipo_etiqueta || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Tipo activo</th>
+        <td>{{ formatoImprimir.tipo_activo || '-' }}</td>
+      </tr>
+      <tr>
+        <th>Confidencialidad</th>
+        <td>{{ formatoImprimir.confidencialidad ? 'Sí' : 'No' }}</td>
+      </tr>
+      <tr>
+        <th>Criticidad</th>
+        <td>{{ formatoImprimir.criticidad || '-' }}</td>
+      </tr>
+    </table>
 
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Archivo</th>
-            <th>Tipo Doc</th>
-            <th>Área</th>
-            <th>Activo Info</th>
-            <th>Periodo (años)</th>
-            <th>Ubicación</th>
-            <th>Tipo Grupo</th>
-            <th>Tamaño</th>
-            <th>Fecha Subida</th>
-            <th>Tipo Etiqueta</th>
-            <th>ID Carpeta</th>
-            <th>Tipo Activo</th>
-            <th>Confidencialidad</th>
-            <th>Criticidad</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let f of formatos">
-            <td>{{ f.formato_id }}</td>
-            <td>{{ f.nombre_archivo }}</td>
-            <td>{{ f.tipo_documento }}</td>
-            <td>{{ f.id_area || '-' }}</td>
-            <td>{{ f.activo_de_informacion || '-' }}</td>
-            <td>{{ f.periodo_de_conservacion_anio || '-' }}</td>
-            <td>{{ f.ubicacion_descripcion || '-' }}</td>
-
-            <!-- NUEVOS CAMPOS -->
-            <td>{{ f.tipo_grupo || '-' }}</td>
-            <td>{{ f.tamano || '-' }}</td>
-            <td>{{ f.fecha_subida || '-' }}</td>
-            <td>{{ f.tipo_etiqueta || '-' }}</td>
-            <td>{{ f.id_carpeta || '-' }}</td>
-            <td>{{ f.tipo_activo || '-' }}</td>
-            <td>{{ f.confidencialidad ? 'Sí' : 'No' }}</td>
-            <td>{{ f.criticidad || '-' }}</td>
-
-            <td>
-              <button class="btn-small blue" (click)="abrirModalEditar(f)">Editar</button>
-              <button class="btn-small red" (click)="eliminarFormato(f.formato_id)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- MODAL -->
-<div class="modal-backdrop" *ngIf="showModal">
-  <div class="modal-card">
-
-    <div class="modal-header">
-      <h3>{{ editando ? 'Editar Formato' : 'Nuevo Formato' }}</h3>
-      <span class="material-symbols-outlined close-icon"
-        (click)="cerrarModal()">
-    cancel
-  </span>
-    </div>
-     
-
-
-    <form class="modal-body" (ngSubmit)="guardarFormato()">
-
-      <div class="form-group">
-        <label>Nombre Archivo</label>
-        <input type="text" [(ngModel)]="nuevoFormato.nombre_archivo" name="nombre_archivo" required />
-      </div>
-
-      <div class="form-group">
-        <label>Activo de Información</label>
-        <input type="text" [(ngModel)]="nuevoFormato.activo_de_informacion" name="activo_de_informacion" />
-      </div>
-
-      <!-- ID ÁREA SIMPLE -->
-      <div class="form-group">
-        <label>ID Área</label>
-        <input type="number"
-               [(ngModel)]="nuevoFormato.id_area"
-               name="id_area"
-               placeholder="Ej: 1,2,3"
-               min="0" />
-      </div>
-
-      <div class="form-group">
-        <label>Periodo de Conservación (años)</label>
-        <input type="number"
-               [(ngModel)]="nuevoFormato.periodo_de_conservacion_anio"
-               name="periodo_de_conservacion_anio"
-               min="0" />
-      </div>
-
-      <!-- UBICACIÓN -->
-      <div class="form-group">
-        <label>Ubicación</label>
-        <select [(ngModel)]="nuevoFormato.ubicacion_descripcion" name="ubicacion_descripcion">
-          <option value="">Seleccione una ubicación</option>
-          <option *ngFor="let u of ubicacionesDescripcion" [value]="u">{{ u }}</option>
-        </select>
-      </div>
-
-      <!-- TIPO DOCUMENTO -->
-      <div class="form-group">
-        <label>Tipo Documento</label>
-        <select [(ngModel)]="nuevoFormato.tipo_documento" name="tipo_documento">
-          <option value="">Seleccione un tipo</option>
-          <option *ngFor="let t of tiposDocumento" [value]="t">{{ t }}</option>
-        </select>
-      </div>
-
-      <!-- TIPO GRUPO -->
-      <div class="form-group">
-        <label>Tipo Grupo</label>
-        <select [(ngModel)]="nuevoFormato.tipo_grupo" name="tipo_grupo">
-          <option value="">Seleccione un grupo</option>
-          <option *ngFor="let g of tiposGrupo" [value]="g">{{ g }}</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Tamaño</label>
-        <input type="text" [(ngModel)]="nuevoFormato.tamano" name="tamano" />
-      </div>
-
-      <div class="form-group">
-        <label>Fecha de Subida</label>
-        <input type="date" [(ngModel)]="nuevoFormato.fecha_subida" name="fecha_subida" />
-      </div>
-
-      <div class="form-group">
-        <label>Tipo Etiqueta</label>
-        <input type="text" [(ngModel)]="nuevoFormato.tipo_etiqueta" name="tipo_etiqueta" />
-      </div>
-
-      <!-- ID CARPETA SIMPLE -->
-      <div class="form-group">
-        <label>ID Carpeta</label>
-        <input type="number"
-               [(ngModel)]="nuevoFormato.id_carpeta"
-               name="id_carpeta"
-               placeholder="Ej: 10,20..."
-               min="0" />
-      </div>
-
-      <div class="form-group">
-        <label>Tipo Activo</label>
-        <input type="text" [(ngModel)]="nuevoFormato.tipo_activo" name="tipo_activo" />
-      </div>
-
-      <div class="form-group">
-        <label>Confidencialidad</label>
-        <select [(ngModel)]="nuevoFormato.confidencialidad" name="confidencialidad">
-          <option [ngValue]="true">Sí</option>
-          <option [ngValue]="false">No</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Criticidad</label>
-        <select [(ngModel)]="nuevoFormato.criticidad" name="criticidad">
-          <option>Alta</option>
-          <option>Media</option>
-          <option>Baja</option>
-        </select>
-      </div>
-
-      <div class="modal-footer">
-        <button type="submit" class="btn-blue">
-  <span class="material-symbols-outlined">
-    {{ editando ? 'edit' : 'add_circle' }}
-  </span>
-  {{ editando ? 'Actualizar Formato' : 'Agregar Formato' }}
-</button>
-
-<button type="button" class="btn-light" (click)="cerrarModal()">
-  <span class="material-symbols-outlined">cancel</span>
-  Cancelar
-</button>
-
-      </div>
-
-    </form>
-
+    <p class="print-note">
+      Nota: Este documento es generado desde el sistema de gestión de formatos para fines informativos.
+    </p>
   </div>
 </div>

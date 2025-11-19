@@ -34,6 +34,13 @@ export class FormatoComponent implements OnInit {
     'Repositorio institucional'
   ];
 
+  // ➤ FECHA ACTUAL PARA LA IMPRESIÓN
+  today = new Date();
+
+  // ➤ LISTAS PARA MOSTRAR NOMBRES EN VEZ DE IDs
+  areas: any[] = [];
+  carpetas: any[] = [];
+
   // ➤ DATOS PRINCIPALES
   formatos: any[] = [];
   formatosOriginal: any[] = [];
@@ -61,10 +68,15 @@ export class FormatoComponent implements OnInit {
   showModal = false;
   editando = false;
 
+  // ➤ Formato seleccionado para imprimir
+  formatoImprimir: any = null;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.obtenerFormatos();
+    this.obtenerAreas();
+    this.obtenerCarpetas();
   }
 
   obtenerFormatos(): void {
@@ -75,6 +87,22 @@ export class FormatoComponent implements OnInit {
           this.formatos = data;
         },
         error: err => console.error('Error al obtener formatos:', err)
+      });
+  }
+
+  obtenerAreas(): void {
+    this.http.get<any[]>('http://localhost/API/area/listar.php')
+      .subscribe({
+        next: data => this.areas = data,
+        error: err => console.error('Error al obtener áreas:', err)
+      });
+  }
+
+  obtenerCarpetas(): void {
+    this.http.get<any[]>('http://localhost/API/carpeta/listar.php')
+      .subscribe({
+        next: data => this.carpetas = data,
+        error: err => console.error('Error al obtener carpetas:', err)
       });
   }
 
@@ -131,19 +159,19 @@ export class FormatoComponent implements OnInit {
       return;
     }
 
-    // ✅ VALIDACIÓN: evitar valores negativos en números
+    // VALIDACIÓN: evitar valores negativos en números
     if (
       (this.nuevoFormato.id_area !== null && this.nuevoFormato.id_area < 0) ||
       (this.nuevoFormato.periodo_de_conservacion_anio !== null && this.nuevoFormato.periodo_de_conservacion_anio < 0) ||
       (this.nuevoFormato.id_carpeta !== null && this.nuevoFormato.id_carpeta < 0)
     ) {
-      alert('Los valores numéricos (ID Área, Años de conservación, ID Carpeta) no pueden ser negativos');
+      alert('Los valores numéricos no pueden ser negativos');
       return;
     }
 
-    const url = this.editando ?
-      'http://localhost/API/formato/actualizar.php' :
-      'http://localhost/API/formato/crear.php';
+    const url = this.editando
+      ? 'http://localhost/API/formato/actualizar.php'
+      : 'http://localhost/API/formato/crear.php';
 
     const body = { ...this.nuevoFormato };
 
@@ -178,4 +206,28 @@ export class FormatoComponent implements OnInit {
         }
       });
   }
+
+  // ➤ Helpers para mostrar nombres en vez de IDs
+  obtenerNombreArea(id_area: number | null): string {
+    if (id_area == null) return '-';
+    const a = this.areas.find(ar => ar.area_id == id_area);
+    return a ? a.nombre : id_area.toString();
+  }
+
+  obtenerNombreCarpeta(id_carpeta: number | null): string {
+    if (id_carpeta == null) return '-';
+    const c = this.carpetas.find(cp => cp.id_carpeta == id_carpeta);
+    return c ? c.nombre : id_carpeta.toString();
+  }
+
+  // ➤ Botón PDF / Imprimir
+  imprimirFormato(formato: any): void {
+    this.formatoImprimir = formato;
+
+    // Pequeño delay para que Angular pinte la vista antes de imprimir
+    setTimeout(() => {
+      window.print();
+    }, 100);
+  }
+
 }

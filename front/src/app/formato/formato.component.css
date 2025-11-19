@@ -48,7 +48,22 @@
   margin-top:8px;
 }
 
+/* LABEL BÚSQUEDA */
+.label-1{
+  font-size:14px;
+  color:#374151;
+  display:block;
+  margin-bottom:6px;
+}
+
 /* FILA BÚSQUEDA */
+.search-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin:16px 0 20px;
+}
+
 .search-row label{
   font-size:14px;
   color:#374151;
@@ -72,6 +87,9 @@
   padding:8px 14px;
   font-size:14px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 
 .btn-search:hover{
@@ -86,10 +104,30 @@
   padding:8px 14px;
   font-size:14px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 
 .btn-blue:hover{
   background:#188dcc;
+}
+
+.btn-light{
+  background:#e5e7eb;
+  color:#111827;
+  border:none;
+  border-radius:4px;
+  padding:8px 14px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.btn-light:hover{
+  background:#d1d5db;
 }
 
 .btn-small{
@@ -99,14 +137,22 @@
   font-size:13px;
   cursor:pointer;
   margin-right:4px;
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
 }
 
 .btn-small.blue{background:#3b82f6;color:#fff;}
 .btn-small.red{background:#ef4444;color:#fff;}
+.btn-small.gray{background:#6b7280;color:#fff;}
+
 .btn-small.blue:hover{background:#2563eb;}
 .btn-small.red:hover{background:#dc2626;}
+.btn-small.gray:hover{background:#4b5563;}
 
-
+.little1{
+  font-size:16px;
+}
 
 /* TABLA */
 .table-area{
@@ -152,6 +198,13 @@
   color:#fff;
   padding:12px 20px;
   border-radius:8px 8px 0 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.close-icon{
+  cursor:pointer;
 }
 
 .modal-body{
@@ -184,9 +237,7 @@
   gap:8px;
 }
 
-/* =============================
-   SCROLL PARA TABLAS GRANDES
-============================= */
+/* SCROLL PARA TABLAS GRANDES */
 .table-scroll {
   overflow-x: auto;
   width: 100%;
@@ -197,6 +248,89 @@
 
 .table-scroll table {
   width: 100%;
-  min-width: 1200px; /* ajusta si necesitas más ancho */
+  min-width: 1200px;
   border-collapse: collapse;
+}
+
+/* --------- HOJA DE IMPRESIÓN --------- */
+
+.print-card{
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 24px 32px 28px;
+  background:#ffffff;
+  border:1px solid #e5e7eb;
+  border-radius:8px;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Barra azul de encabezado */
+.print-header-bar{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  background:#47C1DF;
+  color:#ffffff;
+  padding:14px 18px;
+  border-radius:6px;
+  margin-bottom:16px;
+}
+
+.print-logo-wrap{
+  flex-shrink:0;
+}
+
+.print-logo{
+  height:40px;          /* ajusta tamaño si quieres */
+}
+
+.print-header-text p{
+  margin:0;
+  line-height:1.2;
+}
+
+.print-uni{
+  font-size:11px;
+  font-weight:600;
+}
+
+.print-system{
+  font-size:16px;
+  font-weight:700;
+}
+
+.print-detail{
+  font-size:13px;
+  font-weight:500;
+}
+
+/* Tabla del detalle */
+.print-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+  font-size:13px;
+}
+
+.print-table th,
+.print-table td{
+  border:1px solid #e5e7eb;
+  padding:6px 10px;
+  text-align:left;
+}
+
+.print-table th{
+  width:35%;
+  background:#f9fafb;
+  font-weight:600;
+}
+
+.print-note{
+  margin-top:16px;
+  font-size:11px;
+  color:#6b7280;
+}
+
+.print-only {
+  display: none;
 }
