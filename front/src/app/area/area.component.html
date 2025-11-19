@@ -6,8 +6,7 @@
 
   <div class="page-card-body">
 
-      <label  class="label-1">Búsqueda</label>
-
+    <label class="label-1">Búsqueda</label>
 
     <!-- BÚSQUEDA Y BOTÓN -->
     <div class="search-row">
@@ -24,7 +23,7 @@
       </button>
 
       <button class="btn-blue" (click)="abrirModalNueva()">
-        Agregar Área<span class="material-symbols-outlined">add_circle</span>
+        Agregar Área <span class="material-symbols-outlined">add_circle</span>
       </button>
     </div>
 
@@ -34,9 +33,8 @@
         <tr>
           <th>ID Área</th>
           <th>Nombre</th>
-          <th>ID Subárea</th>
           <th>Departamento</th>
-          <th>ID Sede</th>
+          <th>Sede</th>
           <th>Acciones</th>
         </tr>
       </thead>
@@ -44,12 +42,17 @@
         <tr *ngFor="let area of areas">
           <td>{{ area.area_id }}</td>
           <td>{{ area.nombre }}</td>
-          <td>{{ area.id_sub_area || '-' }}</td>
           <td>{{ area.departamento }}</td>
-          <td>{{ area.id_sede }}</td>
+          <td>{{ obtenerNombreSede(area.id_sede) }}</td>
           <td>
-            <button class="btn-small blue" (click)="abrirModalEditar(area)">Editar <span class="material-symbols-outlined little1">edit_square</span></button>
-            <button class="btn-small red" (click)="eliminarArea(area.area_id)">Eliminar <span class="material-symbols-outlined little1">delete</span></button>
+            <button class="btn-small blue" (click)="abrirModalEditar(area)">
+              Editar
+              <span class="material-symbols-outlined little1">edit_square</span>
+            </button>
+            <button class="btn-small red" (click)="eliminarArea(area.area_id)">
+              Eliminar
+              <span class="material-symbols-outlined little1">delete</span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -65,8 +68,8 @@
       <h3>Gestión de Áreas</h3>
       <span class="material-symbols-outlined close-icon"
         (click)="cerrarModal()">
-    cancel
-  </span>
+        cancel
+      </span>
     </div>
 
     <form class="modal-body" (ngSubmit)="guardarArea()">
@@ -81,14 +84,7 @@
         />
       </div>
 
-      <div class="form-group">
-        <label>ID Subárea</label>
-        <input
-          type="number"
-          [(ngModel)]="nuevaArea.id_sub_area"
-          name="id_sub_area"
-        />
-      </div>
+      <!-- 🔹 Ya no hay campo de ID Subárea -->
 
       <div class="form-group">
         <label>Departamento</label>
@@ -101,29 +97,31 @@
       </div>
 
       <div class="form-group">
-        <label>ID Sede</label>
-        <input
-          type="number"
+        <label>Sede</label>
+        <select
           [(ngModel)]="nuevaArea.id_sede"
           name="id_sede"
           required
-        />
+        >
+          <option [ngValue]="null">Seleccione una sede</option>
+          <option *ngFor="let sede of sedes" [ngValue]="sede.id_sede">
+            {{ sede.nombre_sede }} - {{ sede.ciudad }}
+          </option>
+        </select>
       </div>
 
       <div class="modal-footer">
-       <button type="submit" class="btn-blue">
-  <span class="material-symbols-outlined">
-    {{ editando ? 'edit' : 'add_circle' }}
-  </span>
-  {{ editando ? 'Actualizar Área' : 'Agregar Área' }}
-</button>
+        <button type="submit" class="btn-blue">
+          <span class="material-symbols-outlined">
+            {{ editando ? 'edit' : 'add_circle' }}
+          </span>
+          {{ editando ? 'Actualizar Área' : 'Agregar Área' }}
+        </button>
 
-<button type="button" class="btn-light" (click)="cerrarModal()">
-  <span class="material-symbols-outlined">cancel</span>
-  Cancelar
-</button>
-
-      
+        <button type="button" class="btn-light" (click)="cerrarModal()">
+          <span class="material-symbols-outlined">cancel</span>
+          Cancelar
+        </button>
       </div>
     </form>
   </div>

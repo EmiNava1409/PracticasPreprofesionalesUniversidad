@@ -17,7 +17,15 @@
   padding:20px 24px 28px;
 }
 
-/* BLOQUE DESCRIPTIVO */
+/* Etiqueta de búsqueda */
+.label-1{
+  font-size:14px;
+  color:#374151;
+  display:block;
+  margin-bottom:6px;
+}
+
+/* BLOQUE DESCRIPTIVO (si lo usas) */
 .carpeta-info{
   margin-bottom:18px;
   padding:12px 14px;
@@ -48,17 +56,11 @@
 }
 
 /* FILA BÚSQUEDA */
-/* .search-row{
+.search-row{
   display:flex;
   align-items:center;
   gap:10px;
-  margin:16px 0;
-}
-
-.search-row label{
-  font-size:14px;
-  color:#374151;
-  min-width:80px;
+  margin:16px 0 20px;
 }
 
 .search-input{
@@ -67,7 +69,7 @@
   border-radius:4px;
   border:1px solid #d1d5db;
   font-size:14px;
-} */
+}
 
 /* BOTONES */
 .btn-search{
@@ -78,6 +80,9 @@
   padding:8px 14px;
   font-size:14px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 
 .btn-search:hover{
@@ -92,10 +97,30 @@
   padding:8px 14px;
   font-size:14px;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
 }
 
 .btn-blue:hover{
   background:#188dcc;
+}
+
+.btn-light{
+  background:#e5e7eb;
+  color:#111827;
+  border:none;
+  border-radius:4px;
+  padding:8px 14px;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
+.btn-light:hover{
+  background:#d1d5db;
 }
 
 .btn-small{
@@ -105,6 +130,9 @@
   font-size:13px;
   cursor:pointer;
   margin-right:4px;
+  display:inline-flex;
+  align-items:center;
+  gap:2px;
 }
 
 .btn-small.blue{background:#3b82f6;color:#fff;}
@@ -112,6 +140,9 @@
 .btn-small.blue:hover{background:#2563eb;}
 .btn-small.red:hover{background:#dc2626;}
 
+.little1{
+  font-size:16px;
+}
 
 /* TABLA */
 .table-carpeta{
@@ -154,6 +185,13 @@
   color:#fff;
   padding:12px 20px;
   border-radius:8px 8px 0 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.close-icon{
+  cursor:pointer;
 }
 
 .modal-body{
@@ -171,10 +209,12 @@
   margin-bottom:4px;
 }
 
-.form-group input{
+.form-group input,
+.form-group select{
   padding:6px 10px;
   border-radius:4px;
   border:1px solid #d1d5db;
+  font-size:14px;
 }
 
 .modal-footer{

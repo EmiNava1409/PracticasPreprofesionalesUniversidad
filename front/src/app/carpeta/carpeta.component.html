@@ -5,7 +5,7 @@
   </div>
 
   <div class="page-card-body">
-      <label  class="label-1">Búsqueda</label>
+    <label class="label-1">Búsqueda</label>
 
     <!-- BÚSQUEDA Y BOTÓN -->
     <div class="search-row">
@@ -32,8 +32,8 @@
         <tr>
           <th>ID Carpeta</th>
           <th>Nombre</th>
-          <th>ID Sede</th>
-          <th>ID Subcarpeta</th>
+          <th>Sede</th>
+          <!-- Ya no mostramos ID Subcarpeta al usuario -->
           <th>Acciones</th>
         </tr>
       </thead>
@@ -41,11 +41,14 @@
         <tr *ngFor="let carpeta of carpetas">
           <td>{{ carpeta.id_carpeta }}</td>
           <td>{{ carpeta.nombre }}</td>
-          <td>{{ carpeta.id_sede }}</td>
-          <td>{{ carpeta.id_sub_carpeta || '-' }}</td>
+          <td>{{ obtenerNombreSede(carpeta.id_sede) }}</td>
           <td>
-            <button class="btn-small blue" (click)="abrirModalEditar(carpeta)">Editar <span class="material-symbols-outlined little1">edit_square</span></button>
-            <button class="btn-small red" (click)="eliminarCarpeta(carpeta.id_carpeta)">Eliminar <span class="material-symbols-outlined little1">delete</span></button>
+            <button class="btn-small blue" (click)="abrirModalEditar(carpeta)">
+              Editar <span class="material-symbols-outlined little1">edit_square</span>
+            </button>
+            <button class="btn-small red" (click)="eliminarCarpeta(carpeta.id_carpeta)">
+              Eliminar <span class="material-symbols-outlined little1">delete</span>
+            </button>
           </td>
         </tr>
       </tbody>
@@ -75,37 +78,33 @@
       </div>
 
       <div class="form-group">
-        <label>ID Sede</label>
-        <input
-          type="number"
+        <label>Sede</label>
+        <select
           [(ngModel)]="nuevaCarpeta.id_sede"
           name="id_sede"
           required
-        />
+        >
+          <option [ngValue]="null">Seleccione una sede</option>
+          <option *ngFor="let sede of sedes" [ngValue]="sede.id_sede">
+            {{ sede.nombre_sede }} - {{ sede.ciudad }}
+          </option>
+        </select>
       </div>
 
-      <div class="form-group">
-        <label>ID Subcarpeta (opcional)</label>
-        <input
-          type="number"
-          [(ngModel)]="nuevaCarpeta.id_sub_carpeta"
-          name="id_sub_carpeta"
-        />
-      </div>
+      <!-- 🔹Ya no hay campo visible de ID Subcarpeta -->
 
       <div class="modal-footer">
         <button type="submit" class="btn-blue">
-  <span class="material-symbols-outlined">
-    {{ editando ? 'edit' : 'add_circle' }}
-  </span>
-  {{ editando ? 'Actualizar Carpeta' : 'Agregar Carpeta' }}
-</button>
+          <span class="material-symbols-outlined">
+            {{ editando ? 'edit' : 'add_circle' }}
+          </span>
+          {{ editando ? 'Actualizar Carpeta' : 'Agregar Carpeta' }}
+        </button>
 
-<button type="button" class="btn-light" (click)="cerrarModal()">
-  <span class="material-symbols-outlined">cancel</span>
-  Cancelar
-</button>
-
+        <button type="button" class="btn-light" (click)="cerrarModal()">
+          <span class="material-symbols-outlined">cancel</span>
+          Cancelar
+        </button>
       </div>
     </form>
   </div>
