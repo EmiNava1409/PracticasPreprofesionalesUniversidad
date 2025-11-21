@@ -237,3 +237,20 @@
     border-radius: 0;
   }
 }
+
+/* FUENTES */
+/* Nunito normal (Variable Font) */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;   /* rango completo de la variable font */
+  font-style: normal;
+}
+
+/* Nunito italic (Variable Font) */
+@font-face {
+  font-family: 'Nunito';
+  src: url('/assets/fonts/Nunito-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
