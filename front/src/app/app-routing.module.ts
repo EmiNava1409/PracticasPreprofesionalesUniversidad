@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { PanelNavegacionComponent } from './panel-navegacion/panel-navegacion.component';
 import { SedeComponent } from './sede/sede.component';
 import { AreaComponent } from './area/area.component';
 import { CarpetaComponent } from './carpeta/carpeta.component';
 import { FormatoComponent } from './formato/formato.component';
+import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: '', component: PanelNavegacionComponent, pathMatch: 'full' },   // 👈 le agrego pathMatch
-  { path: 'sede', component: SedeComponent },
-  { path: 'area', component: AreaComponent },
-  { path: 'carpeta', component: CarpetaComponent },
-  { path: 'formato', component: FormatoComponent },
+  { path: 'login', component: LoginComponent },                   // libre
+  { path: '',        component: PanelNavegacionComponent, canActivate: [AuthGuard] },
+  { path: 'sede',    component: SedeComponent, canActivate: [AuthGuard] },
+  { path: 'area',    component: AreaComponent, canActivate: [AuthGuard] },
+  { path: 'carpeta', component: CarpetaComponent, canActivate: [AuthGuard] },
+  { path: 'formato', component: FormatoComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
 
@@ -20,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

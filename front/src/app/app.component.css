@@ -1,12 +1,20 @@
-:host {
-  font-family: 'Nunito', system-ui, sans-serif;
+/* =========================================================
+   BASE
+========================================================= */
+:host{
+  font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-/* ========== BARRA SUPERIOR ========== */
+/* (opcional) si ves que no aplica la fuente, añade en index.html:
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+*/
 
+/* =========================================================
+   TOPBAR
+========================================================= */
 .topbar{
   height:64px;
-  background:#ffffff;
+  background:#fff;
   border-bottom:1px solid #e5e7eb;
   display:flex;
   align-items:center;
@@ -14,20 +22,14 @@
   padding:0 24px;
 }
 
-.topbar-left{
-  display:flex;
-  align-items:center;
-  gap:16px;
-}
+.topbar-left{ display:flex; align-items:center; gap:16px; }
 
-/* LOGO NUEVO ARRIBA A LA IZQUIERDA */
 .topbar-logo{
-  height:40px;      /* ajusta si lo quieres más grande/pequeño */
+  height:40px;
   width:auto;
   object-fit:contain;
 }
 
-/* botón ☰ dentro de la barra, no fijo */
 .menu-toggle{
   background:transparent;
   border:none;
@@ -37,12 +39,8 @@
   padding:0;
   line-height:1;
 }
+.menu-toggle:focus{ outline:none; }
 
-.menu-toggle:focus{
-  outline:none;
-}
-
-/* parte derecha de la barra (opcional) */
 .topbar-right{
   display:flex;
   align-items:center;
@@ -50,95 +48,111 @@
   font-size:14px;
   color:#111827;
 }
+.user-icon{ font-size:18px; }
 
-.user-icon{
-  font-size:18px;
-}
-
-/* ========== LAYOUT GENERAL ========== */
-
+/* =========================================================
+   LAYOUT
+========================================================= */
 .layout{
   display:flex;
-  min-height:calc(100vh - 64px);  /* resto la altura de la barra superior */
+  min-height:calc(100vh - 64px);
   background:#f3f4f6;
 }
 
-/* ========== SIDEBAR ========== */
-
+/* =========================================================
+   SIDEBAR
+========================================================= */
 .sidebar{
-  flex:0 0 150px;                /* más angosto, como en el sistema real */
+  flex:0 0 150px;
   width:150px;
-  background:#ffffff;
+  background:#fff;
   border-right:1px solid #e5e7eb;
   display:flex;
   flex-direction:column;
   overflow:hidden;
-  transition:flex-basis .25s ease,
-             width .25s ease;
+  transition:flex-basis .25s ease, width .25s ease;
 }
 
-/* cuando está cerrado: desaparece, pero la barra superior con logo sigue */
+/* cerrar sidebar (el logo de la topbar se sigue viendo) */
 .sidebar.collapsed{
   flex-basis:0;
   width:0;
   border-right:none;
 }
 
-/* MENÚ LATERAL EN CUADROS */
-
+/* ====== Menú en cuadros ====== */
 .sidebar-menu{
   display:flex;
   flex-direction:column;
-  padding:0;                     /* sin padding para que los cuadros ocupen todo */
+  padding:0;
 }
 
 .sidebar-menu a{
   display:flex;
-  flex-direction:column;         /* icono arriba, texto abajo */
+  flex-direction:column;   /* icono arriba, texto abajo */
   align-items:center;
   justify-content:center;
   text-align:center;
-  gap:8px;
-  height:120px;                  /* alto del “cuadro” */
+  gap:10px;
+  height:120px;            /* alto de cada “cuadro” */
   padding:8px 4px;
-  font-size:13px;
   color:#1f3a68;
   text-decoration:none;
-  border-bottom:1px solid #edf2f7;  /* línea entre opciones */
+  border-bottom:1px solid #edf2f7;
+  background:#fff;
+  transition:background .2s ease, color .2s ease, transform .1s ease;
 }
 
-.sidebar-menu a .icon{
-  font-size:32px;                /* tamaño del icono */
+/* iconos Material Symbols con tamaño consistente */
+.sidebar-menu a .material-symbols-outlined.menu{
+  font-size:40px;          /* ajusta si lo quieres más grande */
+  line-height:1;
 }
 
-/* hover y activo */
+/* texto */
+.sidebar-menu a .menuname{
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:.2px;
+}
 
+/* hover */
 .sidebar-menu a:hover{
   background:#f1f5f9;
+  transform:translateY(-1px);
 }
 
+/* ACTIVO: fondo celeste + franja cian a la izquierda + icono/label en cian */
 .sidebar-menu a.active{
   background:#e5eefb;
-  box-shadow:inset 4px 0 0 #47C1DF;  /* franja azul al lado izquierdo */
-  font-weight:600;
+  box-shadow:inset 4px 0 0 #47C1DF;
 }
 
-a.active .material-symbols-outlined.menu {
-  color: #47C1DF !important;
+.sidebar-menu a.active .material-symbols-outlined.menu,
+.sidebar-menu a.active .menuname{
+  color:#47C1DF !important;
 }
 
-a.active .menuname {
-    color: #47C1DF !important;
-}
+/* separador sutil entre cuadros */
+.sidebar-menu a + a{ border-top:1px solid #f7f9fb; }
 
-
-/* ========== CONTENIDO DERECHA ========== */
-
+/* =========================================================
+   CONTENIDO
+========================================================= */
 .main{
   flex:1;
   padding:28px 40px;
   min-width:0;
+  background:#f5f7fa; /* más suave que #D3D3D3 */
+  min-height:100vh;
+}
 
-  background-color: #D3D3D3;
-  min-height: 100vh;
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+@media (max-width: 420px){
+  .sidebar{ width:130px; flex:0 0 130px; }
+  .sidebar-menu a{ height:110px; }
+  .sidebar-menu a .material-symbols-outlined.menu{ font-size:36px; }
+  .sidebar-menu a .menuname{ font-size:15px; }
 }

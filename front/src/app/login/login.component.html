@@ -1,0 +1,44 @@
+<div class="login-bg">
+  <!-- LOGO FUERA DE LA TARJETA -->
+  <img class="login-logo" src="assets/imagenes/imagenlogo.png" alt="PUCE" />
+
+  <!-- TARJETA -->
+  <div class="login-card">
+    <h1 class="title">Sistema de Archivo</h1>
+
+    <div class="subhead">
+      <span>Inicio de sesión</span>
+      <strong>{{ modo === 'admin' ? 'Administrador' : 'Usuario' }}</strong>
+    </div>
+
+    <!-- Tabs Administrador / Usuario -->
+    <div class="tabs">
+      <button
+        type="button"
+        [class.active]="modo==='admin'"
+        (click)="modo='admin'">
+        Administrador
+      </button>
+      <button
+        type="button"
+        [class.active]="modo==='usuario'"
+        (click)="modo='usuario'">
+        Usuario
+      </button>
+    </div>
+
+    <form (ngSubmit)="ingresar()" autocomplete="off">
+      <label class="label">Usuario</label>
+      <input class="input" type="text" [(ngModel)]="usuario" name="usuario" required />
+
+      <label class="label">Contraseña</label>
+      <input class="input" type="password" [(ngModel)]="password" name="password" required />
+
+      <button class="btn" type="submit">Ingresar</button>
+
+      <div class="forgot">Olvidé mi contraseña</div>
+
+      <div *ngIf="error" class="error">No se pudo iniciar sesión</div>
+    </form>
+  </div>
+</div>

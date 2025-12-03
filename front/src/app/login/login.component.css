@@ -1,0 +1,150 @@
+:host { display:block; }
+
+/* Fondo y centrado total */
+.login-bg{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  padding:32px 16px;
+  background:#47C1DF; /* azul de fondo */
+  /* halo suave alrededor como en la referencia */
+  box-shadow: inset 0 30px 80px rgba(0,0,0,.06);
+}
+
+/* Logo fuera de la tarjeta */
+.login-logo{
+  width:min(300px, 60vw);
+  height:auto;
+  object-fit:contain;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.15));
+}
+
+/* Tarjeta */
+.login-card{
+  width:min(820px, 94vw);
+  background:#fff;
+  border-radius:14px;
+  padding:28px 32px 26px;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.12),
+    0 1px 0 rgba(255,255,255,.6) inset;
+}
+
+/* Título y subtítulo */
+.title{
+  margin:4px 0 12px;
+  font-size:34px;
+  line-height:1.15;
+  color:#0f2647;
+  font-weight:800;
+  text-align:center;
+}
+
+.subhead{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:12px;
+  color:#50627b;
+  font-size:15px;
+}
+
+/* Tabs */
+.tabs{
+  display:flex;
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.tabs button{
+  padding:10px 18px;
+  border-radius:10px;
+  border:1px solid #d7e3f1;
+  background:#eaf3ff;
+  color:#1a3a66;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .18s ease;
+}
+
+.tabs button.active{
+  background:#5fa8cf;
+  color:#fff;
+  border-color:#5fa8cf;
+  box-shadow:0 6px 16px rgba(95,168,207,.35);
+}
+
+.tabs button:not(.active):hover{
+  background:#f4f8ff;
+}
+
+/* Form */
+.label{
+  display:block;
+  margin:10px 0 6px;
+  color:#253b5a;
+  font-size:15px;
+  font-weight:600;
+}
+
+.input{
+  width:100%;
+  height:48px;
+  padding:0 14px;
+  border-radius:10px;
+  border:1px solid #e1e8f0;
+  background:#ecf2ff;
+  font-size:16px;
+  outline:none;
+}
+
+.input:focus{
+  border-color:#8bbad6;
+  box-shadow:0 0 0 3px rgba(91,164,202,.2);
+  background:#f5f8ff;
+}
+
+/* Botón */
+.btn{
+  width:100%;
+  height:52px;
+  margin-top:18px;
+  border:none;
+  border-radius:12px;
+  background:#6eadd0;
+  color:#fff;
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:.2px;
+  cursor:pointer;
+  transition:transform .05s ease, box-shadow .18s ease, background .18s ease;
+  box-shadow:0 10px 24px rgba(110,173,208,.35);
+}
+
+.btn:hover{ background:#5aa2ca; }
+.btn:active{ transform:translateY(1px); }
+
+/* Enlace y error */
+.forgot{
+  margin-top:12px;
+  text-align:center;
+  color:#6a7e95;
+  font-size:14px;
+}
+
+.error{
+  margin-top:10px;
+  color:#c03131;
+  text-align:center;
+  font-weight:700;
+}
+
+/* Responsive pequeño */
+@media (max-width: 480px){
+  .title{ font-size:26px; }
+  .tabs{ gap:6px; }
+  .tabs button{ padding:8px 12px; }
+}

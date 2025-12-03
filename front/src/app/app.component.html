@@ -1,57 +1,52 @@
-<!-- BARRA SUPERIOR -->
-<header class="topbar">
-  <div class="topbar-left">
-    <!-- LOGO NUEVO SIEMPRE VISIBLE -->
-    <img
-      src="assets/imagenes/logo-puce-nuevo.png"
-      alt="PUCE"
-      class="topbar-logo"
-    />
+<!-- Si NO hay sesión, muestra el login -->
+<ng-container *ngIf="!(auth.isLoggedIn$ | async); else layout">
+  <app-login></app-login>
+</ng-container>
 
-    <!-- BOTÓN ☰ PARA ABRIR/CERRAR EL PANEL LATERAL -->
-    <button
-      class="menu-toggle"
-      type="button"
-      (click)="toggleSidebar()">
-      ☰
-    </button>
+<!-- Si hay sesión, muestra el layout -->
+<ng-template #layout>
+  <header class="topbar">
+    <div class="topbar-left">
+      <img src="assets/imagenes/logo-puce-nuevo.png" alt="PUCE" class="topbar-logo" />
+      <button class="menu-toggle" type="button" (click)="toggleSidebar()">☰</button>
+    </div>
+    <div class="topbar-right">
+      <span class="user-name">Usuario PUCE</span>
+      <span class="user-icon">👤</span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+      <nav class="sidebar-menu">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <span class="material-symbols-outlined menu">home</span><span class="menuname">Inicio</span>
+        </a>
+
+        <!-- SOLO ADMIN -->
+        <a routerLink="/sede" routerLinkActive="active" *ngIf="(auth.role$ | async) === 'admin'">
+          <span class="material-symbols-outlined menu">apartment</span><span class="menuname">Sede</span>
+        </a>
+        <a routerLink="/area" routerLinkActive="active" *ngIf="(auth.role$ | async) === 'admin'">
+          <span class="material-symbols-outlined menu">group</span><span class="menuname">Área</span>
+        </a>
+
+        <!-- TODOS -->
+        <a routerLink="/carpeta" routerLinkActive="active">
+          <span class="material-symbols-outlined menu">folder</span><span class="menuname">Carpeta</span>
+        </a>
+        <a routerLink="/formato" routerLinkActive="active">
+          <span class="material-symbols-outlined menu">edit_document</span><span class="menuname">Formato</span>
+        </a>
+
+        <a (click)="logout()" style="cursor:pointer">
+          <span class="material-symbols-outlined menu">logout</span><span class="menuname">Salir</span>
+        </a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <router-outlet></router-outlet>
+    </main>
   </div>
-
-  <!-- DERECHA DE LA BARRA (PUEDES PONER NOMBRE / ICONO SI QUIERES) -->
-  <div class="topbar-right">
-    <!-- Ejemplo simple, puedes cambiarlo o quitarlo -->
-    <span class="user-name">Usuario PUCE</span>
-    <span class="user-icon">👤</span>
-  </div>
-</header>
-
-<!-- CUERPO: SIDEBAR + CONTENIDO -->
-<div class="layout">
-
-  <!-- PANEL LATERAL -->
-  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
-    <nav class="sidebar-menu">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-        <span class="material-symbols-outlined menu">home</span><span class="menuname">Inicio</span>
-      </a>
-      <a routerLink="/sede" routerLinkActive="active">
-
-      <span class="material-symbols-outlined menu">apartment</span><span class="menuname">Sede</span>
-      </a>
-      <a routerLink="/area" routerLinkActive="active">
-        <span class="material-symbols-outlined menu">group</span><span class="menuname">Área</span>
-      </a>
-      <a routerLink="/carpeta" routerLinkActive="active">
-        <span class="material-symbols-outlined menu">folder</span><span class="menuname">Carpeta</span>
-      </a>
-      <a routerLink="/formato" routerLinkActive="active">
-        <span class="material-symbols-outlined menu">edit_document</span><span class="menuname">Formato</span>
-      </a>
-    </nav>
-  </aside>
-
-  <!-- CONTENIDO DERECHA -->
-  <main class="main">
-    <router-outlet></router-outlet>
-  </main>
-</div>
+</ng-template>
