@@ -8,7 +8,8 @@ import { AuthService, Rol } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  modo: Rol = 'usuario';
+
+  modo: Rol = 'usuario';  // 🔵 MODO DINÁMICO
   usuario = '';
   password = '';
   error = '';
@@ -25,4 +26,13 @@ export class LoginComponent {
       }
     });
   }
+
+  // 🔵 CAMBIA ENTRE ADMIN / USUARIO DESDE EL LINK
+cambiarModo(nuevoModo: Rol) {
+  this.modo = nuevoModo;
+  this.usuario = '';
+  this.password = '';
+  this.error = '';
+}
+
 }

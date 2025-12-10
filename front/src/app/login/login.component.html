@@ -6,26 +6,14 @@
   <div class="login-card">
     <h1 class="title">Sistema de Archivo</h1>
 
-    <div class="subhead">
-      <span>Inicio de sesión</span>
-      <strong>{{ modo === 'admin' ? 'Administrador' : 'Usuario' }}</strong>
-    </div>
+<div class="subhead">
+  <span>Inicio de sesión</span>
+  <strong>{{ modo === 'admin' ? 'Administrador' : 'Usuario' }}</strong>
+</div>
 
-    <!-- Tabs Administrador / Usuario -->
-    <div class="tabs">
-      <button
-        type="button"
-        [class.active]="modo==='admin'"
-        (click)="modo='admin'">
-        Administrador
-      </button>
-      <button
-        type="button"
-        [class.active]="modo==='usuario'"
-        (click)="modo='usuario'">
-        Usuario
-      </button>
-    </div>
+
+
+    <!-- ❌ SE ELIMINARON LAS TABS -->
 
     <form (ngSubmit)="ingresar()" autocomplete="off">
       <label class="label">Usuario</label>
@@ -36,7 +24,26 @@
 
       <button class="btn" type="submit">Ingresar</button>
 
-      <div class="forgot">Olvidé mi contraseña</div>
+     <div class="forgot">
+  Olvidé mi contraseña
+
+  <!-- Si modo = usuario -->
+  <span
+    class="admin-link"
+    *ngIf="modo === 'usuario'"
+    (click)="cambiarModo('admin')">
+    ¿Eres administrador? Ingresa aquí
+  </span>
+
+  <!-- Si modo = admin -->
+  <span
+    class="admin-link"
+    *ngIf="modo === 'admin'"
+    (click)="cambiarModo('usuario')">
+    ¿Eres usuario? Ingresa aquí
+  </span>
+</div>
+
 
       <div *ngIf="error" class="error">No se pudo iniciar sesión</div>
     </form>

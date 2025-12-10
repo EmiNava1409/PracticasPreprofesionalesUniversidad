@@ -148,3 +148,15 @@
   .tabs{ gap:6px; }
   .tabs button{ padding:8px 12px; }
 }
+
+
+.admin-link {
+  margin-left: 6px;
+  color: #1a7ecf;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-link:hover {
+  text-decoration: underline;
+}
