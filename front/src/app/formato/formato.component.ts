@@ -74,7 +74,7 @@ export class FormatoComponent implements OnInit {
 
   // ➤ Obtener lista de formatos
   obtenerFormatos(): void {
-    this.http.get<any[]>('http://localhost/API/formato/listar.php')
+    this.http.get<any[]>('/API/Formato/listar.php')
       .subscribe({
         next: data => {
           this.formatosOriginal = data;
@@ -86,7 +86,7 @@ export class FormatoComponent implements OnInit {
 
   // ➤ Obtener listas para combos (área y carpeta)
   obtenerAreas(): void {
-    this.http.get<any[]>('http://localhost/API/area/listar.php')
+    this.http.get<any[]>('.php')
       .subscribe({
         next: data => this.areas = data,
         error: err => console.error('Error al obtener áreas:', err)
@@ -94,7 +94,7 @@ export class FormatoComponent implements OnInit {
   }
 
   obtenerCarpetas(): void {
-    this.http.get<any[]>('http://localhost/API/carpeta/listar.php')
+    this.http.get<any[]>('/API/Carpeta/listar.php')
       .subscribe({
         next: data => this.carpetas = data,
         error: err => console.error('Error al obtener carpetas:', err)
@@ -166,8 +166,8 @@ export class FormatoComponent implements OnInit {
     }
 
     const url = this.editando
-      ? 'http://localhost/API/formato/actualizar.php'
-      : 'http://localhost/API/formato/crear.php';
+      ? '/API/Formato/actualizar.php'
+      : '/API/Formato/crear.php';
 
     const body = {
       formato_id: this.nuevoFormato.formato_id,
@@ -206,7 +206,7 @@ export class FormatoComponent implements OnInit {
   eliminarFormato(formato_id: number): void {
     if (!confirm('¿Eliminar este formato?')) return;
 
-    this.http.post('http://localhost/API/formato/eliminar.php', { formato_id })
+    this.http.post('/API/Formato/eliminar.php', { formato_id })
       .subscribe({
         next: _ => {
           alert('Formato eliminado');

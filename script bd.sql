@@ -1,5 +1,6 @@
 
-create database plantilla_automatizada;
+CREATE DATABASE plantilla_automatizada;
+
 use plantilla_automatizada;
 
 -- {{CREACION DE TABLAS}}

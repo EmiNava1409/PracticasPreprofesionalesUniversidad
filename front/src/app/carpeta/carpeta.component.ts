@@ -38,7 +38,7 @@ export class CarpetaComponent implements OnInit {
 
   // Obtener todas las carpetas
   obtenerCarpetas(): void {
-    this.http.get<any[]>('http://localhost/API/carpeta/listar.php')
+    this.http.get<any[]>('/API/Carpeta/listar.php')
       .subscribe({
         next: data => {
           this.carpetasOriginal = data;
@@ -50,7 +50,7 @@ export class CarpetaComponent implements OnInit {
 
   // Obtener sedes para el select
   obtenerSedes(): void {
-    this.http.get<any[]>('http://localhost/API/sede/listar.php')
+    this.http.get<any[]>('/API/Sede/listar.php')
       .subscribe({
         next: data => {
           this.sedes = data;
@@ -112,7 +112,7 @@ export class CarpetaComponent implements OnInit {
 
     // Actualizar
     if (this.editando && this.nuevaCarpeta.id_carpeta != null) {
-      this.http.post('http://localhost/API/carpeta/actualizar.php', this.nuevaCarpeta)
+      this.http.post('/API/Carpeta/actualizar.php', this.nuevaCarpeta)
         .subscribe({
           next: _ => {
             alert('Carpeta actualizada');
@@ -133,7 +133,7 @@ export class CarpetaComponent implements OnInit {
         id_sub_carpeta: null  // 🔹 siempre null, el usuario no maneja subcarpeta
       };
 
-      this.http.post('http://localhost/API/carpeta/crear.php', body)
+      this.http.post('/API/Carpeta/crear.php', body)
         .subscribe({
           next: _ => {
             alert('Carpeta registrada');
@@ -153,7 +153,7 @@ export class CarpetaComponent implements OnInit {
   eliminarCarpeta(id_carpeta: number): void {
     if (!confirm('¿Eliminar esta carpeta?')) return;
 
-    this.http.post('http://localhost/API/carpeta/eliminar.php', { id_carpeta })
+    this.http.post('/API/Carpeta/eliminar.php', { id_carpeta })
       .subscribe({
         next: _ => {
           alert('Carpeta eliminada');

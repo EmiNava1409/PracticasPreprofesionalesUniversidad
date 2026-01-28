@@ -40,7 +40,7 @@ export class AreaComponent implements OnInit {
 
   // Obtener todas las áreas
   obtenerAreas(): void {
-    this.http.get<any[]>('http://localhost/API/area/listar.php')
+    this.http.get<any[]>('/API/Area/listar.php')
       .subscribe({
         next: data => {
           this.areasOriginal = data;
@@ -52,7 +52,7 @@ export class AreaComponent implements OnInit {
 
   // Obtener todas las sedes para el select
   obtenerSedes(): void {
-    this.http.get<any[]>('http://localhost/API/sede/listar.php')
+    this.http.get<any[]>('/API/Sede/listar.php')
       .subscribe({
         next: data => {
           this.sedes = data;
@@ -117,7 +117,7 @@ export class AreaComponent implements OnInit {
 
     // Actualizar
     if (this.editando && this.nuevaArea.area_id != null) {
-      this.http.post('http://localhost/API/area/actualizar.php', this.nuevaArea)
+      this.http.post('/API/Area/actualizar.php', this.nuevaArea)
         .subscribe({
           next: _ => {
             alert('Área actualizada');
@@ -139,7 +139,7 @@ export class AreaComponent implements OnInit {
         id_sede: this.nuevaArea.id_sede
       };
 
-      this.http.post('http://localhost/API/area/crear.php', body)
+      this.http.post('/API/Area/crear.php', body)
         .subscribe({
           next: _ => {
             alert('Área registrada');
@@ -159,7 +159,7 @@ export class AreaComponent implements OnInit {
   eliminarArea(area_id: number): void {
     if (!confirm('¿Eliminar esta área?')) return;
 
-    this.http.post('http://localhost/API/area/eliminar.php', { area_id })
+    this.http.post('/API/Area/eliminar.php', { area_id })
       .subscribe({
         next: _ => {
           alert('Área eliminada');

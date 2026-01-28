@@ -1,0 +1,18 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: practicas_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./script bd.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  web:
+    build: .
+    container_name: practicas_web
+    depends_on:
+      - db
+    ports:
+      - "8080:80"

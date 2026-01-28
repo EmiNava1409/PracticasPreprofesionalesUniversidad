@@ -27,7 +27,7 @@ export class SedeComponent implements OnInit {
   }
 
   obtenerSedes(): void {
-    this.http.get<any[]>('http://localhost/API/sede/listar.php')
+    this.http.get<any[]>('.php')
       .subscribe({
         next: data => this.sedes = data,
         error: err => console.error('Error al obtener sedes:', err)
@@ -62,7 +62,7 @@ export class SedeComponent implements OnInit {
 
     // actualizar
     if (this.editando && this.nuevaSede.id_sede != null) {
-      this.http.post('http://localhost/API/sede/actualizar.php', this.nuevaSede)
+      this.http.post('/API/Sede/actualizar.php', this.nuevaSede)
         .subscribe({
           next: _ => {
             alert('Sede actualizada');
@@ -79,7 +79,7 @@ export class SedeComponent implements OnInit {
         nombre_sede: this.nuevaSede.nombre_sede,
         ciudad: this.nuevaSede.ciudad
       };
-      this.http.post('http://localhost/API/sede/crear.php', body)
+      this.http.post('/API/Sede/crear.php', body)
         .subscribe({
           next: _ => {
             alert('Sede agregada');
@@ -97,7 +97,7 @@ export class SedeComponent implements OnInit {
   eliminarSede(id_sede: number): void {
     if (!confirm('¿Eliminar esta sede?')) return;
 
-    this.http.post('http://localhost/API/sede/eliminar.php', { id_sede })
+    this.http.post('/API/Sede/eliminar.php', { id_sede })
       .subscribe({
         next: _ => {
           alert('Sede eliminada');
